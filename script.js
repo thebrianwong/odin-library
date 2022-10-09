@@ -45,8 +45,79 @@ const resetFormValues = () => {
     inputRating.value = "";
 }
 
+// Leaving for now, displays old books repeatedly
+const displayAllLibraryBooks = () => {
+    const NUMOFPTAG = 4
+    const container = document.querySelector(".container");
+    for (book in library) {
+        const bookCard = document.createElement("div");
+        bookCard.classList.add("book");
+        const title = document.createElement("h2");
+        title.classList.add("title");
+        title.textContent = library[book]["title"];
+        bookCard.appendChild(title);
+        for (let i = 0; i < NUMOFPTAG; i++) {
+            const paragraph = document.createElement("p");
+            if (i === 0) {
+                paragraph.classList.add("author");
+                paragraph.textContent = library[book]["author"];
+            } else if (i === 1) {
+                paragraph.classList.add("pages");
+                paragraph.textContent = library[book]["pages"];
+            } else if (i === 2) {
+                paragraph.classList.add("read");
+                paragraph.textContent = library[book]["read"];
+            } else {
+                paragraph.classList.add("rating");
+                if (library[book]["rating"] !== "") {
+                    paragraph.textContent = `Rating: ${library[book]["rating"]}/5`;
+                } else {
+                    paragraph.textContent = `Rating: None`;
+                }
+            }
+            bookCard.appendChild(paragraph);
+        }
+        container.appendChild(bookCard);
+    }
+}
+
+const displayNewBook = () => {
+    const NUMOFPTAG = 4
+    const container = document.querySelector(".container");
+    const newBook = library[library.length - 1];
+    const bookCard = document.createElement("div");
+    bookCard.classList.add("book");
+    const title = document.createElement("h2");
+    title.classList.add("title");
+    title.textContent = newBook["title"];
+    bookCard.appendChild(title);
+    for (let i = 0; i < NUMOFPTAG; i++) {
+        const paragraph = document.createElement("p");
+        if (i === 0) {
+            paragraph.classList.add("author");
+            paragraph.textContent = newBook["author"];
+        } else if (i === 1) {
+            paragraph.classList.add("pages");
+            paragraph.textContent = newBook["pages"];
+        } else if (i === 2) {
+            paragraph.classList.add("read");
+            paragraph.textContent = newBook["read"];
+        } else {
+            paragraph.classList.add("rating");
+            if (newBook["rating"] !== "") {
+                paragraph.textContent = `Rating: ${newBook["rating"]}/5`;
+            } else {
+                paragraph.textContent = `Rating: None`;
+            }
+        }
+        bookCard.appendChild(paragraph);
+    }
+    container.appendChild(bookCard);
+}
+
 const submitFormButton = document.querySelector("#add-book");
 submitFormButton.addEventListener("click", () => {
     addBook();
     resetFormValues();
+    displayNewBook();
 })
