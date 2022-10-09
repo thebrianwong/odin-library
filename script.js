@@ -119,7 +119,17 @@ const addFormButtonClicker = () => {
     const newBookButton = document.querySelector("#new-book-button");
     const newBookForm = document.querySelector("form");
     newBookButton.addEventListener("click", () => {
+        newBookForm.classList.remove("form-hiding");
         newBookForm.classList.add("form-showing");
+    })
+}
+
+const addCancelFormClicker = () => {
+    const cancelButton = document.querySelector("#cancel-button");
+    const newBookForm = document.querySelector("form");
+    cancelButton.addEventListener("click", () => {
+        newBookForm.classList.remove("form-showing");
+        newBookForm.classList.add("form-hiding");
     })
 }
 
@@ -131,7 +141,7 @@ submitFormButton.addEventListener("click", () => {
 })
 
 addFormButtonClicker();
-
+addCancelFormClicker();
 
 
 
