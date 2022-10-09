@@ -1,0 +1,13 @@
+* {
+    border: solid 1px red;
+}
+
+.container,
+.book {
+    display: flex;
+    justify-content: center;
+}
+
+.book {
+    flex-direction: column;
+}
