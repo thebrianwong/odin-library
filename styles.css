@@ -9,7 +9,7 @@ form,
     justify-content: center;
 }
 
-.new-book {
+.new-book-container {
     display: flex;
     justify-content: flex-end;
 }
