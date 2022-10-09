@@ -45,43 +45,16 @@ const resetFormValues = () => {
     inputRating.value = "";
 }
 
-// Leaving for now, displays old books repeatedly
-const displayAllLibraryBooks = () => {
-    const NUMOFPTAG = 4
-    const container = document.querySelector(".container");
-    for (book in library) {
-        const bookCard = document.createElement("div");
-        bookCard.classList.add("book");
-        const title = document.createElement("h2");
-        title.classList.add("title");
-        title.textContent = library[book]["title"];
-        bookCard.appendChild(title);
-        for (let i = 0; i < NUMOFPTAG; i++) {
-            const paragraph = document.createElement("p");
-            if (i === 0) {
-                paragraph.classList.add("author");
-                paragraph.textContent = library[book]["author"];
-            } else if (i === 1) {
-                paragraph.classList.add("pages");
-                paragraph.textContent = library[book]["pages"];
-            } else if (i === 2) {
-                paragraph.classList.add("read");
-                paragraph.textContent = library[book]["read"];
-            } else {
-                paragraph.classList.add("rating");
-                if (library[book]["rating"] !== "") {
-                    paragraph.textContent = `Rating: ${library[book]["rating"]}/5`;
-                } else {
-                    paragraph.textContent = `Rating: None`;
-                }
-            }
-            bookCard.appendChild(paragraph);
-        }
-        container.appendChild(bookCard);
-    }
-}
-
-const removeBook = (removeButton, bookCard) => {
+// Creates remove button DOM element and adds functionality to remove corresponding book DOM element
+const addRemoveBookButton = (bookCard) => {
+    const removeButton = document.createElement("button");
+    removeButton.setAttribute("type", "button");
+    removeButton.classList.add("remove-book");
+    const removeButtonImage = document.createElement("img");
+    removeButtonImage.setAttribute("src", "assets/close.png");
+    removeButtonImage.setAttribute("alt", "Cancel");
+    removeButton.appendChild(removeButtonImage);
+    bookCard.appendChild(removeButton);
     removeButton.addEventListener("click", () => {
         indexNumber = bookCard.dataset.indexNumber;
         library.splice(indexNumber, 1, undefined)
@@ -96,21 +69,11 @@ const displayNewBook = () => {
     const bookCard = document.createElement("div");
     bookCard.dataset.indexNumber = library.length - 1;
     bookCard.classList.add("book");
-
-    // Adds button to delete book
-    const removeButton = document.createElement("button");
-    removeButton.setAttribute("type", "button");
-    removeButton.classList.add("remove-book");
-    const removeButtonImage = document.createElement("img");
-    removeButtonImage.setAttribute("src", "assets/close.png");
-    removeButtonImage.setAttribute("alt", "Cancel");
-    removeButton.appendChild(removeButtonImage);
-    bookCard.appendChild(removeButton);
-
+    
     // Functionality to delete book from library
-        removeBook(removeButton, bookCard);
-    //
+    addRemoveBookButton(bookCard);
 
+    // Adds contents of the book entry
     const title = document.createElement("h2");
     title.classList.add("title");
     title.textContent = newBook["title"];
@@ -157,13 +120,16 @@ const addCancelFormClicker = () => {
     })
 }
 
-const submitFormButton = document.querySelector("#add-book");
-submitFormButton.addEventListener("click", () => {
-    addBook();
-    resetFormValues();
-    displayNewBook();
-})
+const addSubmitFormClicker = () => {
+    const submitFormButton = document.querySelector("#add-book");
+    submitFormButton.addEventListener("click", () => {
+        addBook();
+        resetFormValues();
+        displayNewBook();
+    })
+}
 
+addSubmitFormClicker();
 addFormButtonClicker();
 addCancelFormClicker();
 
@@ -205,3 +171,39 @@ addCancelFormClicker();
 //         </form>
 //     `
 // })
+
+// Leaving for now, displays old books repeatedly
+const displayAllLibraryBooks = () => {
+    const NUMOFPTAG = 4
+    const container = document.querySelector(".container");
+    for (book in library) {
+        const bookCard = document.createElement("div");
+        bookCard.classList.add("book");
+        const title = document.createElement("h2");
+        title.classList.add("title");
+        title.textContent = library[book]["title"];
+        bookCard.appendChild(title);
+        for (let i = 0; i < NUMOFPTAG; i++) {
+            const paragraph = document.createElement("p");
+            if (i === 0) {
+                paragraph.classList.add("author");
+                paragraph.textContent = library[book]["author"];
+            } else if (i === 1) {
+                paragraph.classList.add("pages");
+                paragraph.textContent = library[book]["pages"];
+            } else if (i === 2) {
+                paragraph.classList.add("read");
+                paragraph.textContent = library[book]["read"];
+            } else {
+                paragraph.classList.add("rating");
+                if (library[book]["rating"] !== "") {
+                    paragraph.textContent = `Rating: ${library[book]["rating"]}/5`;
+                } else {
+                    paragraph.textContent = `Rating: None`;
+                }
+            }
+            bookCard.appendChild(paragraph);
+        }
+        container.appendChild(bookCard);
+    }
+}
