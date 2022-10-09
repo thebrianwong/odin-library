@@ -9,11 +9,12 @@ function Book(title, author, pages, read, rating) {
 }
 
 function addBook() {
-    const title = prompt("What is the name of the book?");
-    const author = prompt("Who is the author of this book?");
-    const pages = prompt("How many pages does this book have?");
-    const read = prompt("Have you read this book?");
+    // const title = prompt("What is the name of the book?");
+    const inputTitle = document.querySelector("#input-title").value;
+    const inputAuthor = document.querySelector("#input-author").value;
+    const inputPages = document.querySelector("#input-pages").value;
+    const radioButtonsReadStatus = prompt("Have you read this book?");
     const rating = prompt("What would you rate this book out of 5?");
-    const newBook = new Book(title, author, pages, read, rating);
+    const newBook = new Book(inputTitle, author, pages, read, rating);
     library.push(newBook);
 }
