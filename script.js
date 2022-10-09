@@ -8,13 +8,25 @@ function Book(title, author, pages, read, rating) {
     this.rating = rating;
 }
 
-function addBook() {
-    // const title = prompt("What is the name of the book?");
+const addBook = () => {
     const inputTitle = document.querySelector("#input-title").value;
     const inputAuthor = document.querySelector("#input-author").value;
     const inputPages = document.querySelector("#input-pages").value;
-    const radioButtonsReadStatus = prompt("Have you read this book?");
-    const rating = prompt("What would you rate this book out of 5?");
-    const newBook = new Book(inputTitle, author, pages, read, rating);
+    const radioButtons = document.querySelector(".radio-buttons");
+    const radioButtonsList = Array.from(radioButtons.querySelectorAll("input"));
+    let inputReadStatus = "";
+    for (button in radioButtonsList) {
+        if (radioButtonsList[button].checked === true) {
+            inputReadStatus = radioButtonsList[button].value;
+            break;
+        }
+    }
+    const inputRating = document.querySelector("#input-rating").value;
+    const newBook = new Book(inputTitle, inputAuthor, inputPages, inputReadStatus, inputRating);
     library.push(newBook);
 }
+
+const submitFormButton = document.querySelector("#add-book");
+submitFormButton.addEventListener("click", () => {
+    addBook();
+})
