@@ -81,12 +81,36 @@ const displayAllLibraryBooks = () => {
     }
 }
 
+const removeBook = (removeButton, bookCard) => {
+    removeButton.addEventListener("click", () => {
+        indexNumber = bookCard.dataset.indexNumber;
+        library.splice(indexNumber, 1, undefined)
+        bookCard.remove();
+    })
+}
+
 const displayNewBook = () => {
     const NUMOFPTAG = 4
     const container = document.querySelector(".container");
     const newBook = library[library.length - 1];
     const bookCard = document.createElement("div");
+    bookCard.dataset.indexNumber = library.length - 1;
     bookCard.classList.add("book");
+
+    // Adds button to delete book
+    const removeButton = document.createElement("button");
+    removeButton.setAttribute("type", "button");
+    removeButton.classList.add("remove-book");
+    const removeButtonImage = document.createElement("img");
+    removeButtonImage.setAttribute("src", "assets/close.png");
+    removeButtonImage.setAttribute("alt", "Cancel");
+    removeButton.appendChild(removeButtonImage);
+    bookCard.appendChild(removeButton);
+
+    // Functionality to delete book from library
+        removeBook(removeButton, bookCard);
+    //
+
     const title = document.createElement("h2");
     title.classList.add("title");
     title.textContent = newBook["title"];
