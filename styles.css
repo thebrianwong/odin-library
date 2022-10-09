@@ -4,7 +4,8 @@
 
 form,
 .container,
-.book {
+.book,
+.new-book {
     display: flex;
     justify-content: center;
 }
@@ -15,7 +16,19 @@ form,
     align-items: center;
 }
 
-input[value="Submit"]:active {
+input[value="Submit"]:active,
+input[value="New Book"]:active {
     background-color: aqua;
     cursor: pointer;
+}
+
+/* This will probably be used for the form when it appears after
+clicking on the New Book button */
+#fakeID {
+    opacity: .1;
+    position: absolute;
+    width: 500px;
+    top: 20%;
+    left: calc(50vw - (500px / 2));
+    overflow: hidden;
 }
