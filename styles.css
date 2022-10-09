@@ -26,6 +26,23 @@ input[value="New Book"]:active {
     cursor: pointer;
 }
 
+#cancel-icon {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    padding: 0;
+    height: 26px;
+    width: 26px;
+}
+
+#cancel-icon:hover {
+    cursor: pointer;
+}
+
+#cancel-icon:active {
+    box-shadow: inset 0 2px 2px gray;
+}
+
 /* This will probably be used for the form when it appears after
 clicking on the New Book button */
 form {
