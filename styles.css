@@ -2,12 +2,20 @@
     border: solid 1px red;
 }
 
+form,
 .container,
 .book {
     display: flex;
     justify-content: center;
 }
 
+form,
 .book {
     flex-direction: column;
+    align-items: center;
+}
+
+input[value="Submit"]:active {
+    background-color: aqua;
+    cursor: pointer;
 }

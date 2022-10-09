@@ -32,5 +32,32 @@
             <p class="rating">5/5</p>
         </div>
     </div>
+    <form action="">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title">
+        <label for="author">Author</label>
+        <input type="text" id="author" name="author">
+        <label for="pages">Pages</label>
+        <input type="tel" id="pages" name="pages">
+        <div>
+            <legend>Have you read this book?</legend>
+            <input type="radio" id="yes" name="read-status" value="yes">
+            <label for="read-status">Yes</label>
+            <input type="radio" id="no" name="read-status" value="no">
+            <label for="read-status">No</label>
+        </div>
+        <div>
+            <label for="rating">What would you rate this book?</label>
+            <select name="rating" id="rating">
+                <option value="">Rating</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+        <input type="button" value="Submit">
+    </form>
 </body>
 </html>
