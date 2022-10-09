@@ -28,11 +28,46 @@ input[value="New Book"]:active {
 
 /* This will probably be used for the form when it appears after
 clicking on the New Book button */
-#fakeID {
-    opacity: .1;
+form {
+    background-color: white;
     position: absolute;
     width: 500px;
-    top: 20%;
     left: calc(50vw - (500px / 2));
-    overflow: hidden;
+    overflow: static;
+    top: -22%;
+    opacity: 0;
+}
+
+@keyframes form-showing-animation {
+    from {
+        opacity: 0;
+        top: -22%;
+    }
+    to {
+        opacity: 1;
+        top: 20%;
+    }
+}
+
+@keyframes form-hiding-animation {
+    from {
+        opacity: 1;
+        top: 20%;
+    }
+    to {
+        opacity: 0;
+        top: -22%;
+    }
+}
+
+.form-hiding {
+    animation-name: form-hiding-animation;
+    animation-fill-mode: forwards;
+    animation-duration: 0.5s;
+}
+
+.form-showing {
+    animation-name: form-showing-animation;
+    animation-fill-mode: forwards;
+    animation-duration: 0.5s;
 }
