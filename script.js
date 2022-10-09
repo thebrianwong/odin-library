@@ -26,7 +26,27 @@ const addBook = () => {
     library.push(newBook);
 }
 
+const resetFormValues = () => {
+    const inputTitle = document.querySelector("#input-title");
+    inputTitle.value = "";
+    const inputAuthor = document.querySelector("#input-author");
+    inputAuthor.value = "";
+    const inputPages = document.querySelector("#input-pages");
+    inputPages.value = "";
+    const radioButtons = document.querySelector(".radio-buttons");
+    const radioButtonsList = Array.from(radioButtons.querySelectorAll("input"));
+    for (button in radioButtonsList) {
+        if (radioButtonsList[button].checked === true) {
+            radioButtonsList[button].checked = false;
+            break;
+        }
+    }
+    const inputRating = document.querySelector("#input-rating");
+    inputRating.value = "";
+}
+
 const submitFormButton = document.querySelector("#add-book");
 submitFormButton.addEventListener("click", () => {
     addBook();
+    resetFormValues();
 })
