@@ -115,42 +115,13 @@ const displayNewBook = () => {
     container.appendChild(bookCard);
 }
 
-// Not sure how useful this is, but will keep it around for now
-const displayFormButton = document.querySelector("#display-form");
-displayFormButton.addEventListener("click", () => {
-    const formDiv = document.querySelector(".form")
-    formDiv.innerHTML = `
-        <form action="">
-        <label for="input-title">Title</label>
-        <input type="text" id="input-title" name="title">
-        <label for="input-author">Author</label>
-        <input type="text" id="input-author" name="author">
-        <label for="input-pages">Pages</label>
-        <input type="tel" id="input-pages" name="pages">
-        <div class="radio-buttons">
-            <legend>Have you read this book?</legend>
-            <input type="radio" id="input-yes" name="read-status" value="Yes">
-            <label for="input-yes">Yes</label>
-            <input type="radio" id="input-no" name="read-status" value="No">
-            <label for="input-no">No</label>
-            <input type="radio" id="input-currently-reading" name="read-status" value="Currently Reading">
-            <label for="input-currently-reading">Currently Reading</label>
-        </div>
-        <div>
-            <label for="input-rating">What would you rate this book? (Optional)</label>
-            <select name="rating" id="input-rating">
-                <option value="">Rating</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-        </div>
-        <input type="button" value="Submit" id="add-book">
-        </form>
-    `
-})
+const addFormButtonClicker = () => {
+    const newBookButton = document.querySelector("#new-book-button");
+    const newBookForm = document.querySelector("form");
+    newBookButton.addEventListener("click", () => {
+        newBookForm.classList.add("form-showing");
+    })
+}
 
 const submitFormButton = document.querySelector("#add-book");
 submitFormButton.addEventListener("click", () => {
@@ -158,3 +129,45 @@ submitFormButton.addEventListener("click", () => {
     resetFormValues();
     displayNewBook();
 })
+
+addFormButtonClicker();
+
+
+
+
+// Not sure how useful this is, but will keep it around for now
+// const displayFormButton = document.querySelector("#new-book-button");
+// displayFormButton.addEventListener("click", () => {
+//     const formDiv = document.querySelector(".form")
+//     formDiv.innerHTML = `
+//         <form action="">
+//         <label for="input-title">Title</label>
+//         <input type="text" id="input-title" name="title">
+//         <label for="input-author">Author</label>
+//         <input type="text" id="input-author" name="author">
+//         <label for="input-pages">Pages</label>
+//         <input type="tel" id="input-pages" name="pages">
+//         <div class="radio-buttons">
+//             <legend>Have you read this book?</legend>
+//             <input type="radio" id="input-yes" name="read-status" value="Yes">
+//             <label for="input-yes">Yes</label>
+//             <input type="radio" id="input-no" name="read-status" value="No">
+//             <label for="input-no">No</label>
+//             <input type="radio" id="input-currently-reading" name="read-status" value="Currently Reading">
+//             <label for="input-currently-reading">Currently Reading</label>
+//         </div>
+//         <div>
+//             <label for="input-rating">What would you rate this book? (Optional)</label>
+//             <select name="rating" id="input-rating">
+//                 <option value="">Rating</option>
+//                 <option value="1">1</option>
+//                 <option value="2">2</option>
+//                 <option value="3">3</option>
+//                 <option value="4">4</option>
+//                 <option value="5">5</option>
+//             </select>
+//         </div>
+//         <input type="button" value="Submit" id="add-book">
+//         </form>
+//     `
+// })
