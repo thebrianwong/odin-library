@@ -4,10 +4,14 @@
 
 form,
 .container,
-.book,
-.new-book {
+.book {
     display: flex;
     justify-content: center;
+}
+
+.new-book {
+    display: flex;
+    justify-content: flex-end;
 }
 
 form,
