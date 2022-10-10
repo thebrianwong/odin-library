@@ -26,7 +26,7 @@ Book.prototype.changeRating = function(newRating) {
     }
 }
 
-const addBook = () => {
+const addNewBookToLibrary = () => {
     const inputTitle = document.querySelector("#input-title").value;
     const inputAuthor = document.querySelector("#input-author").value;
     const inputPages = document.querySelector("#input-pages").value;
@@ -44,7 +44,7 @@ const addBook = () => {
     library.push(newBook);
 }
 
-const resetFormValues = () => {
+const resetNewBookFormValues = () => {
     const inputTitle = document.querySelector("#input-title");
     inputTitle.value = "";
     const inputAuthor = document.querySelector("#input-author");
@@ -81,7 +81,7 @@ const addRemoveBookButton = (bookCard) => {
 }
 
 // Creates change read status button DOM element and adds functionality to cycle through read statuses
-const addChangeReadButton = (bookCard, newBook) => {
+const addChangeReadStatusButton = (bookCard, newBook) => {
     const readStatusButton = document.createElement("button");
     readStatusButton.setAttribute("type", "button");
     readStatusButton.classList.add("change-read-button");
@@ -128,7 +128,7 @@ const addChangeRatingButton = (bookCard, newBook) => {
     })
 }
 
-const displayNewBook = () => {
+const displayNewlyAddedBook = () => {
     const NUMOFPTAG = 4
     const container = document.querySelector(".container");
     const newBook = library[library.length - 1];
@@ -165,7 +165,7 @@ const displayNewBook = () => {
         }
         bookCard.appendChild(paragraph);
     }
-    addChangeReadButton(bookCard, newBook);
+    addChangeReadStatusButton(bookCard, newBook);
     addChangeRatingButton(bookCard, newBook);
     container.appendChild(bookCard);
 }
@@ -179,6 +179,15 @@ const addFormButtonClicker = () => {
     })
 }
 
+const addSubmitFormClicker = () => {
+    const submitFormButton = document.querySelector("#add-book");
+    submitFormButton.addEventListener("click", () => {
+        addNewBookToLibrary();
+        resetNewBookFormValues();
+        displayNewlyAddedBook();
+    })
+}
+
 const addCancelFormClicker = () => {
     const cancelButton = document.querySelector("#cancel-button");
     const newBookForm = document.querySelector("form");
@@ -188,15 +197,6 @@ const addCancelFormClicker = () => {
     })
 }
 
-const addSubmitFormClicker = () => {
-    const submitFormButton = document.querySelector("#add-book");
-    submitFormButton.addEventListener("click", () => {
-        addBook();
-        resetFormValues();
-        displayNewBook();
-    })
-}
-
-addSubmitFormClicker();
 addFormButtonClicker();
+addSubmitFormClicker();
 addCancelFormClicker();
