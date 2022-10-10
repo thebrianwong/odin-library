@@ -19,7 +19,7 @@ Book.prototype.changeReadStatus = function() {
 }
 
 Book.prototype.changeRating = function(newRating) {
-    if (newRating !== "") {
+    if (newRating !== NaN) {
         this.rating = newRating;
     } else {
         this.rating = "";
@@ -130,6 +130,39 @@ const displayNewBook = () => {
         bookReadStatus.textContent = newBook["read"];
     })
 
+
+    const changeRatingButton = document.createElement("button");
+    changeRatingButton.setAttribute("type", "button");
+    changeRatingButton.classList.add("change-rating-button");
+    changeRatingButton.textContent = "Change Rating";
+    bookCard.appendChild(changeRatingButton);
+    const ratingSelection = document.createElement("select");
+    bookCard.appendChild(ratingSelection);
+    ratingSelection.setAttribute("name", "new-rating");
+    // ratingSelection.setAttribute("id", "new-rating") Not sure if necessary
+    for (let i = 0; i <= 5; i++) {
+        const option = document.createElement("option");
+        if (i === 0) {
+            option.setAttribute("value", "");
+            option.textContent = "New Rating";
+        } else {
+            option.setAttribute("value", i);
+            option.textContent = i
+        }
+        ratingSelection.appendChild(option);
+    }
+    changeRatingButton.addEventListener("click", () => {
+        newBook.changeRating(ratingSelection.value);
+        const bookRating = bookCard.querySelector(".rating");
+        if (ratingSelection.value !== "") {
+            bookRating.textContent = `Rating: ${ratingSelection.value}/5`;
+        } else {
+            bookRating.textContent = "No Rating";
+        }
+        ratingSelection.value = "";
+    })
+
+    
 
     /* 
     add change read status and change rating buttons
