@@ -18,6 +18,14 @@ Book.prototype.changeReadStatus = function() {
     }
 }
 
+Book.prototype.changeRating = function(newRating) {
+    if (newRating !== "") {
+        this.rating = newRating;
+    } else {
+        this.rating = "";
+    }
+}
+
 const addBook = () => {
     const inputTitle = document.querySelector("#input-title").value;
     const inputAuthor = document.querySelector("#input-author").value;
