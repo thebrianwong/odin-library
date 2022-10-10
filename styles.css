@@ -43,12 +43,14 @@ input[value="New Book"]:active {
 }
 
 .remove-book:hover,
-#cancel-button:hover {
+#cancel-button:hover,
+.read-status-button:hover {
     cursor: pointer;
 }
 
 .remove-book:active,
-#cancel-button:active {
+#cancel-button:active,
+.read-status-button:active {
     box-shadow: inset 0 2px 2px gray;
 }
 

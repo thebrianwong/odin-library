@@ -109,6 +109,20 @@ const displayNewBook = () => {
         }
         bookCard.appendChild(paragraph);
     }
+
+    // Adds read status change button
+    const readStatusButton = document.createElement("button");
+    readStatusButton.setAttribute("type", "button");
+    readStatusButton.classList.add("read-status-button");
+    readStatusButton.textContent = "Change Read Status";
+    bookCard.appendChild(readStatusButton);
+    readStatusButton.addEventListener("click", () => {
+        newBook.changeReadStatus();
+        const bookReadStatus = bookCard.querySelector(".read");
+        bookReadStatus.textContent = newBook["read"];
+    })
+
+
     container.appendChild(bookCard);
 }
 
