@@ -8,6 +8,16 @@ function Book(title, author, pages, read, rating) {
     this.rating = rating;
 }
 
+Book.prototype.changeReadStatus = function() {
+    if (this.read === "Yes") {
+        this.read = "No";
+    } else if (this.read === "No") {
+        this.read = "Currently Reading";
+    } else {
+        this.read = "Yes";
+    }
+}
+
 const addBook = () => {
     const inputTitle = document.querySelector("#input-title").value;
     const inputAuthor = document.querySelector("#input-author").value;
