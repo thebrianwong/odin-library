@@ -121,7 +121,7 @@ const displayNewBook = () => {
     // Adds read status change button
     const readStatusButton = document.createElement("button");
     readStatusButton.setAttribute("type", "button");
-    readStatusButton.classList.add("read-status-button");
+    readStatusButton.classList.add("change-read-button");
     readStatusButton.textContent = "Change Read Status";
     bookCard.appendChild(readStatusButton);
     readStatusButton.addEventListener("click", () => {
@@ -130,6 +130,11 @@ const displayNewBook = () => {
         bookReadStatus.textContent = newBook["read"];
     })
 
+
+    /* 
+    add change read status and change rating buttons
+    use same function with diff arguments
+    */
 
     container.appendChild(bookCard);
 }
