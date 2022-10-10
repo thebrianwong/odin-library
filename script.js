@@ -80,6 +80,20 @@ const addRemoveBookButton = (bookCard) => {
     })
 }
 
+// Creates change read status button DOM element and adds functionality to cycle through read statuses
+const addChangeReadButton = (bookCard, newBook) => {
+    const readStatusButton = document.createElement("button");
+    readStatusButton.setAttribute("type", "button");
+    readStatusButton.classList.add("change-read-button");
+    readStatusButton.textContent = "Change Read Status";
+    bookCard.appendChild(readStatusButton);
+    readStatusButton.addEventListener("click", () => {
+        newBook.changeReadStatus();
+        const bookReadStatus = bookCard.querySelector(".read");
+        bookReadStatus.textContent = newBook.read;
+    })
+}
+
 const displayNewBook = () => {
     const NUMOFPTAG = 4
     const container = document.querySelector(".container");
@@ -118,18 +132,7 @@ const displayNewBook = () => {
         bookCard.appendChild(paragraph);
     }
 
-    // Adds read status change button
-    const readStatusButton = document.createElement("button");
-    readStatusButton.setAttribute("type", "button");
-    readStatusButton.classList.add("change-read-button");
-    readStatusButton.textContent = "Change Read Status";
-    bookCard.appendChild(readStatusButton);
-    readStatusButton.addEventListener("click", () => {
-        newBook.changeReadStatus();
-        const bookReadStatus = bookCard.querySelector(".read");
-        bookReadStatus.textContent = newBook.read;
-    })
-
+    addChangeReadButton(bookCard, newBook);
 
     const changeRatingButton = document.createElement("button");
     changeRatingButton.setAttribute("type", "button");
