@@ -52,11 +52,12 @@ const resetNewBookFormValues = () => {
     inputAuthor.value = "";
     const inputPages = document.querySelector("#input-pages");
     inputPages.value = "";
-    const radioButtons = document.querySelector(".radio-buttons");
-    const radioButtonsList = Array.from(radioButtons.querySelectorAll("input"));
+    const inputRadioButtons = document.querySelector(".radio-buttons");
+    const radioButtonsList = Array.from(inputRadioButtons.querySelectorAll("input"));
     for (button in radioButtonsList) {
-        if (radioButtonsList[button].checked === true) {
-            radioButtonsList[button].checked = false;
+        const radioButton = radioButtonsList[button];
+        if (radioButton.checked === true) {
+            radioButton.checked = false;
             break;
         }
     }
