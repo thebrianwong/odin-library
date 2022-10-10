@@ -82,6 +82,36 @@ const addRemoveBookButton = (bookCard) => {
     })
 }
 
+// Adds properties of the newly added Book object to the new book's DOM element
+const addBookDetails= (bookCard, newBook) => {
+    const NUMOFPTAG = 4;
+    const title = document.createElement("h2");
+    title.classList.add("title");
+    title.textContent = newBook.title;
+    bookCard.appendChild(title);
+    for (let i = 0; i < NUMOFPTAG; i++) {
+        const paragraph = document.createElement("p");
+        if (i === 0) {
+            paragraph.classList.add("author");
+            paragraph.textContent = newBook.author;
+        } else if (i === 1) {
+            paragraph.classList.add("pages");
+            paragraph.textContent = newBook.pages;
+        } else if (i === 2) {
+            paragraph.classList.add("read");
+            paragraph.textContent = newBook.read;
+        } else {
+            paragraph.classList.add("rating");
+            if (newBook.rating !== "") {
+                paragraph.textContent = `Rating: ${newBook.rating}/5`;
+            } else {
+                paragraph.textContent = `Rating: None`;
+            }
+        }
+        bookCard.appendChild(paragraph);
+    }
+}
+
 // Creates change read status button DOM element and adds functionality to cycle through read statuses
 const addChangeReadStatusButton = (bookCard, newBook) => {
     const readStatusButton = document.createElement("button");
@@ -131,43 +161,14 @@ const addChangeRatingButton = (bookCard, newBook) => {
 }
 
 const displayNewlyAddedBook = () => {
-    const NUMOFPTAG = 4
     const container = document.querySelector(".container");
     const newBook = library[library.length - 1];
     const bookCard = document.createElement("div");
     bookCard.dataset.indexNumber = library.length - 1;
     bookCard.classList.add("book");
     container.appendChild(bookCard);
-    
-    // Functionality to delete book from library
     addRemoveBookButton(bookCard);
-
-    // Adds contents of the book entry
-    const title = document.createElement("h2");
-    title.classList.add("title");
-    title.textContent = newBook.title;
-    bookCard.appendChild(title);
-    for (let i = 0; i < NUMOFPTAG; i++) {
-        const paragraph = document.createElement("p");
-        if (i === 0) {
-            paragraph.classList.add("author");
-            paragraph.textContent = newBook.author;
-        } else if (i === 1) {
-            paragraph.classList.add("pages");
-            paragraph.textContent = newBook.pages;
-        } else if (i === 2) {
-            paragraph.classList.add("read");
-            paragraph.textContent = newBook.read;
-        } else {
-            paragraph.classList.add("rating");
-            if (newBook.rating !== "") {
-                paragraph.textContent = `Rating: ${newBook.rating}/5`;
-            } else {
-                paragraph.textContent = `Rating: None`;
-            }
-        }
-        bookCard.appendChild(paragraph);
-    }
+    addBookDetails(bookCard, newBook);
     addChangeReadStatusButton(bookCard, newBook);
     addChangeRatingButton(bookCard, newBook);
 }
