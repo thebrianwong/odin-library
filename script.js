@@ -30,12 +30,13 @@ const addNewBookToLibrary = () => {
     const inputTitle = document.querySelector("#input-title").value;
     const inputAuthor = document.querySelector("#input-author").value;
     const inputPages = document.querySelector("#input-pages").value;
-    const radioButtons = document.querySelector(".radio-buttons");
-    const radioButtonsList = Array.from(radioButtons.querySelectorAll("input"));
+    const inputRadioButtons = document.querySelector(".radio-buttons");
+    const radioButtonsList = Array.from(inputRadioButtons.querySelectorAll("input"));
     let inputReadStatus = "";
     for (button in radioButtonsList) {
-        if (radioButtonsList[button].checked === true) {
-            inputReadStatus = radioButtonsList[button].value;
+        const radioButton = radioButtonsList[button];
+        if (radioButton.checked === true) {
+            inputReadStatus = radioButton.value;
             break;
         }
     }
