@@ -94,23 +94,23 @@ const displayNewBook = () => {
     // Adds contents of the book entry
     const title = document.createElement("h2");
     title.classList.add("title");
-    title.textContent = newBook["title"];
+    title.textContent = newBook.title;
     bookCard.appendChild(title);
     for (let i = 0; i < NUMOFPTAG; i++) {
         const paragraph = document.createElement("p");
         if (i === 0) {
             paragraph.classList.add("author");
-            paragraph.textContent = newBook["author"];
+            paragraph.textContent = newBook.author;
         } else if (i === 1) {
             paragraph.classList.add("pages");
-            paragraph.textContent = newBook["pages"];
+            paragraph.textContent = newBook.pages;
         } else if (i === 2) {
             paragraph.classList.add("read");
-            paragraph.textContent = newBook["read"];
+            paragraph.textContent = newBook.read;
         } else {
             paragraph.classList.add("rating");
-            if (newBook["rating"] !== "") {
-                paragraph.textContent = `Rating: ${newBook["rating"]}/5`;
+            if (newBook.rating !== "") {
+                paragraph.textContent = `Rating: ${newBook.rating}/5`;
             } else {
                 paragraph.textContent = `Rating: None`;
             }
@@ -127,7 +127,7 @@ const displayNewBook = () => {
     readStatusButton.addEventListener("click", () => {
         newBook.changeReadStatus();
         const bookReadStatus = bookCard.querySelector(".read");
-        bookReadStatus.textContent = newBook["read"];
+        bookReadStatus.textContent = newBook.read;
     })
 
 
@@ -161,34 +161,6 @@ const displayNewBook = () => {
         }
         ratingSelection.value = "";
     })
-
-    
-
-    /* 
-    add change read status and change rating buttons
-    use same function with diff arguments
-    */
-    const addChangeButton = (bookCard, property) => {
-        const newButton = document.createElement("button");
-        newButton.setAttribute("type", "button");
-        newButton.classList.add(`change-${property}-button`);
-        if (property === "read") {
-            newButton.textContent = "Change Read Status";
-        } else if (property === "rating") {
-            newButton.textContent = "Change Rating";
-        }
-        bookCard.appendChild(newButton);
-        newButton.addEventListener("click", () => {
-            newBook.changeReadStatus();
-            if (property === "read") {
-                newBook.changeReadStatus();
-            } else if (property === "rating") {
-                newButton.changeRating()
-            }
-            const displayedProperty = bookCard.querySelector(`.${property}`);
-            displayedProperty.textContent = newBook[`${property}`];
-        })
-    }
 
     container.appendChild(bookCard);
 }
