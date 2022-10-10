@@ -158,7 +158,7 @@ const displayNewBook = () => {
         newBook.changeRating(ratingSelection.value);
         const bookRating = bookCard.querySelector(".rating");
         if (ratingSelection.value !== "") {
-            bookRating.textContent = `Rating: ${ratingSelection.value}/5`;
+            bookRating.textContent = `Rating: ${newBook.rating}/5`;
         } else {
             bookRating.textContent = "No Rating";
         }
