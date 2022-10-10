@@ -135,6 +135,27 @@ const displayNewBook = () => {
     add change read status and change rating buttons
     use same function with diff arguments
     */
+    const addChangeButton = (bookCard, property) => {
+        const newButton = document.createElement("button");
+        newButton.setAttribute("type", "button");
+        newButton.classList.add(`change-${property}-button`);
+        if (property === "read") {
+            newButton.textContent = "Change Read Status";
+        } else if (property === "rating") {
+            newButton.textContent = "Change Rating";
+        }
+        bookCard.appendChild(newButton);
+        newButton.addEventListener("click", () => {
+            newBook.changeReadStatus();
+            if (property === "read") {
+                newBook.changeReadStatus();
+            } else if (property === "rating") {
+                newButton.changeRating()
+            }
+            const displayedProperty = bookCard.querySelector(`.${property}`);
+            displayedProperty.textContent = newBook[`${property}`];
+        })
+    }
 
     container.appendChild(bookCard);
 }
