@@ -94,6 +94,40 @@ const addChangeReadButton = (bookCard, newBook) => {
     })
 }
 
+// Creates change rating button and selection DOM elements and adds functionality to choose new ratings
+const addChangeRatingButton = (bookCard, newBook) => {
+    const changeRatingButton = document.createElement("button");
+    changeRatingButton.setAttribute("type", "button");
+    changeRatingButton.classList.add("change-rating-button");
+    changeRatingButton.textContent = "Change Rating";
+    bookCard.appendChild(changeRatingButton);
+    const ratingSelection = document.createElement("select");
+    bookCard.appendChild(ratingSelection);
+    ratingSelection.setAttribute("name", "new-rating");
+    // ratingSelection.setAttribute("id", "new-rating") Not sure if necessary
+    for (let i = 0; i <= 5; i++) {
+        const option = document.createElement("option");
+        if (i === 0) {
+            option.setAttribute("value", "");
+            option.textContent = "New Rating";
+        } else {
+            option.setAttribute("value", i);
+            option.textContent = i
+        }
+        ratingSelection.appendChild(option);
+    }
+    changeRatingButton.addEventListener("click", () => {
+        newBook.changeRating(ratingSelection.value);
+        const bookRating = bookCard.querySelector(".rating");
+        if (ratingSelection.value !== "") {
+            bookRating.textContent = `Rating: ${newBook.rating}/5`;
+        } else {
+            bookRating.textContent = "No Rating";
+        }
+        ratingSelection.value = "";
+    })
+}
+
 const displayNewBook = () => {
     const NUMOFPTAG = 4
     const container = document.querySelector(".container");
@@ -131,40 +165,8 @@ const displayNewBook = () => {
         }
         bookCard.appendChild(paragraph);
     }
-
     addChangeReadButton(bookCard, newBook);
-
-    const changeRatingButton = document.createElement("button");
-    changeRatingButton.setAttribute("type", "button");
-    changeRatingButton.classList.add("change-rating-button");
-    changeRatingButton.textContent = "Change Rating";
-    bookCard.appendChild(changeRatingButton);
-    const ratingSelection = document.createElement("select");
-    bookCard.appendChild(ratingSelection);
-    ratingSelection.setAttribute("name", "new-rating");
-    // ratingSelection.setAttribute("id", "new-rating") Not sure if necessary
-    for (let i = 0; i <= 5; i++) {
-        const option = document.createElement("option");
-        if (i === 0) {
-            option.setAttribute("value", "");
-            option.textContent = "New Rating";
-        } else {
-            option.setAttribute("value", i);
-            option.textContent = i
-        }
-        ratingSelection.appendChild(option);
-    }
-    changeRatingButton.addEventListener("click", () => {
-        newBook.changeRating(ratingSelection.value);
-        const bookRating = bookCard.querySelector(".rating");
-        if (ratingSelection.value !== "") {
-            bookRating.textContent = `Rating: ${newBook.rating}/5`;
-        } else {
-            bookRating.textContent = "No Rating";
-        }
-        ratingSelection.value = "";
-    })
-
+    addChangeRatingButton(bookCard, newBook);
     container.appendChild(bookCard);
 }
 
