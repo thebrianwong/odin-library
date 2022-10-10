@@ -137,6 +137,7 @@ const displayNewlyAddedBook = () => {
     const bookCard = document.createElement("div");
     bookCard.dataset.indexNumber = library.length - 1;
     bookCard.classList.add("book");
+    container.appendChild(bookCard);
     
     // Functionality to delete book from library
     addRemoveBookButton(bookCard);
@@ -169,7 +170,6 @@ const displayNewlyAddedBook = () => {
     }
     addChangeReadStatusButton(bookCard, newBook);
     addChangeRatingButton(bookCard, newBook);
-    container.appendChild(bookCard);
 }
 
 const addFormButtonClicker = () => {
