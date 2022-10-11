@@ -9,6 +9,11 @@ body {
 .container {
     background-color: rgba(131, 105, 83, 0.8);
     border: solid 5px brown;
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
 }
 
 .header-container {
