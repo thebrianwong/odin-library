@@ -2,6 +2,10 @@
     border: solid 1px red;
 }
 
+body {
+    background-image: url(assets/library_background.jpg);
+}
+
 form,
 .container,
 .book {
