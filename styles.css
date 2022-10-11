@@ -11,6 +11,21 @@ body {
     border: solid 5px brown;
 }
 
+.header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header-container * {
+    color: white;
+    text-align: center;
+}
+
+.header-container p {
+    width: 500px;
+}
+
 form,
 .book-container,
 .book {
