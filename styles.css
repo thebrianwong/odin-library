@@ -7,7 +7,7 @@ body {
 }
 
 form,
-.container,
+.book-container,
 .book {
     display: flex;
     justify-content: center;
