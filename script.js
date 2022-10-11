@@ -173,10 +173,24 @@ const displayNewlyAddedBook = () => {
     addChangeRatingButton(bookCard, newBook);
 }
 
+const addFormDim = () => {
+    const bodyElement = document.querySelector("body");
+    const dimFilter = document.createElement("div");
+    dimFilter.classList.add("form-dim");
+    bodyElement.appendChild(dimFilter);
+
+}
+
+const removeFormDim = () => {
+    const dimFilter = document.querySelector(".form-dim");
+    dimFilter.remove();
+}
+
 const addFormButtonClicker = () => {
     const newBookButton = document.querySelector("#new-book-button");
     const newBookForm = document.querySelector("form");
     newBookButton.addEventListener("click", () => {
+        addFormDim();
         newBookForm.classList.remove("form-hiding");
         newBookForm.classList.add("form-showing");
     })
@@ -195,6 +209,7 @@ const addCancelFormClicker = () => {
     const cancelButton = document.querySelector("#cancel-button");
     const newBookForm = document.querySelector("form");
     cancelButton.addEventListener("click", () => {
+        removeFormDim();
         newBookForm.classList.remove("form-showing");
         newBookForm.classList.add("form-hiding");
     })
