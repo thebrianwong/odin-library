@@ -6,6 +6,11 @@ body {
     background-image: url(assets/library_background.jpg);
 }
 
+.container {
+    background-color: rgba(131, 105, 83, 0.8);
+    border: solid 5px brown;
+}
+
 form,
 .book-container,
 .book {
