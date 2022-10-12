@@ -109,6 +109,34 @@ button:active {
     width: 100%;
 }
 
+legend {
+    margin: 0 auto 2.5px;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+form > input {
+    margin-bottom: 10px;
+}
+
+.radio-buttons {
+    margin-bottom: 10px;
+}
+
+.rating-select {
+    margin-bottom: 10px;
+}
+
+label[for="input-title"] {
+    margin-top: 25px;
+}
+
+#add-book {
+    margin-bottom: 25px;
+}
+
 /* This will probably be used for the form when it appears after
 clicking on the New Book button */
 form {
