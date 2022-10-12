@@ -76,6 +76,12 @@ form,
     align-items: center;
 }
 
+.book {
+    background-color: whitesmoke;
+    border: solid 2px lightgray;
+    margin: 0 2.5px;
+}
+
 input[value="Submit"]:active,
 input[value="New Book"]:active {
     background-color: aqua;
