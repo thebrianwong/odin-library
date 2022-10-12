@@ -176,9 +176,14 @@ const displayNewlyAddedBook = () => {
 const addFormDim = () => {
     const bodyElement = document.querySelector("body");
     const dimFilter = document.createElement("div");
+    const newBookForm = document.querySelector("form");
     dimFilter.classList.add("form-dim");
     bodyElement.appendChild(dimFilter);
-
+    dimFilter.addEventListener("click", () => {
+        removeFormDim();
+        newBookForm.classList.remove("form-showing");
+        newBookForm.classList.add("form-hiding");
+    })
 }
 
 const removeFormDim = () => {
