@@ -161,12 +161,12 @@ const addChangeRatingButton = (bookCard, newBook) => {
 }
 
 const displayNewlyAddedBook = () => {
-    const container = document.querySelector(".container");
+    const bookContainer = document.querySelector(".book-container");
     const newBook = library[library.length - 1];
     const bookCard = document.createElement("div");
     bookCard.dataset.indexNumber = library.length - 1;
     bookCard.classList.add("book");
-    container.appendChild(bookCard);
+    bookContainer.appendChild(bookCard);
     addRemoveBookButton(bookCard);
     addBookDetails(bookCard, newBook);
     addChangeReadStatusButton(bookCard, newBook);
@@ -218,3 +218,8 @@ const addCancelFormClicker = () => {
 addFormButtonClicker();
 addSubmitFormClicker();
 addCancelFormClicker();
+
+// Add example book
+const exampleBook = new Book("Moby Dick (Example)", "Herman Melville", 378, "No", 4);
+library.push(exampleBook);
+displayNewlyAddedBook();
