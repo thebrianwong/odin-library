@@ -96,7 +96,7 @@ const addBookDetails= (bookCard, newBook) => {
             paragraph.textContent = newBook.author;
         } else if (i === 1) {
             paragraph.classList.add("pages");
-            paragraph.textContent = newBook.pages;
+            paragraph.textContent = `${newBook.pages} pages`;
         } else if (i === 2) {
             paragraph.classList.add("read");
             paragraph.textContent = newBook.read;
