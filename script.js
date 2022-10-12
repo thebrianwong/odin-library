@@ -136,6 +136,7 @@ const addChangeRatingButton = (bookCard, newBook) => {
     const ratingSelection = document.createElement("select");
     bookCard.appendChild(ratingSelection);
     ratingSelection.setAttribute("name", "new-rating");
+    ratingSelection.classList.add("change-rating-options");
     // ratingSelection.setAttribute("id", "new-rating") Not sure if necessary
     for (let i = 0; i <= 5; i++) {
         const option = document.createElement("option");
