@@ -82,6 +82,11 @@ form,
     margin: 0 2.5px;
 }
 
+.book > * {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 input[value="Submit"]:active,
 input[value="New Book"]:active {
     background-color: aqua;
