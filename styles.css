@@ -85,6 +85,16 @@ form,
 .book > * {
     margin-left: 10px;
     margin-right: 10px;
+    margin: 8px 10px;
+}
+
+.book h2 {
+    margin-top: 16px;
+}
+
+.change-rating-options {
+    margin-top: 0;
+    margin-bottom: 16px;
 }
 
 input[value="Submit"]:active,
