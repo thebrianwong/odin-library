@@ -77,6 +77,12 @@ input[value="New Book"]:active {
     cursor: pointer;
 }
 
+.remove-book,
+#cancel-button {
+    background: none;
+    border: none;
+}
+
 .remove-book {
     padding: 0;
     height: 26px;
@@ -86,11 +92,11 @@ input[value="New Book"]:active {
 
 #cancel-button {
     position: absolute;
-    top: 0%;
-    right: 0%;
+    top: 2%;
+    right: 2%;
     padding: 0;
-    height: 26px;
-    width: 26px;
+    height: 24px;
+    width: 24px;
 }
 
 button:hover {
