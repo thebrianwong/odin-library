@@ -27,6 +27,7 @@ body {
 }
 
 .header-container p {
+    margin-bottom: 0;
     padding-bottom: 25px;
     position: relative;
     width: 500px;
@@ -63,6 +64,10 @@ form,
     margin: 10px 10px 0 0;
     height: 35px;
     width: 125px;
+}
+
+.book-container {
+    margin: 16px
 }
 
 form,
