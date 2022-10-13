@@ -105,6 +105,17 @@ form,
     margin-top: 16px;
 }
 
+.title,
+.author,
+.pages,
+.read,
+.rating {
+    text-shadow: 0px 1px 0px black,
+                 0px -1px 0px black,
+                 1px 0px 0px black, 
+                 -1px 0px 0px black;
+}
+
 .change-rating-options {
     margin-top: 0;
     margin-bottom: 16px;
