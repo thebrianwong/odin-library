@@ -71,7 +71,7 @@ const addRemoveBookButton = (bookCard) => {
     removeButton.setAttribute("type", "button");
     removeButton.classList.add("remove-book");
     const removeButtonImage = document.createElement("img");
-    removeButtonImage.setAttribute("src", "assets/close.png");
+    removeButtonImage.setAttribute("src", "assets/close_book.png");
     removeButtonImage.setAttribute("alt", "Cancel");
     removeButton.appendChild(removeButtonImage);
     bookCard.appendChild(removeButton);
