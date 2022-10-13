@@ -94,6 +94,7 @@ form,
     overflow-wrap: anywhere;
     width: 222px;
     justify-content: space-between;
+    min-height: 369px;
 }
 
 .book > * {
