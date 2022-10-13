@@ -1,3 +1,7 @@
+:root {
+    color: white;
+}
+
 * {
     border: solid 1px red;
 }
@@ -78,6 +82,8 @@ form,
 
 .book {
     background-color: whitesmoke;
+    background-image: url(assets/card.png);
+    background-size: 100% 100%;
     border: solid 2px lightgray;
     margin: 0 2.5px;
 }
@@ -172,6 +178,7 @@ label[for="input-title"] {
 clicking on the New Book button */
 form {
     background-color: white;
+    color: black;
     position: absolute;
     width: 500px;
     left: calc(50vw - (500px / 2));
