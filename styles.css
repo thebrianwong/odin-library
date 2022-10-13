@@ -92,6 +92,7 @@ form,
     text-align: center;
     overflow-wrap: anywhere;
     width: 222px;
+    justify-content: space-between;
 }
 
 .book > * {
