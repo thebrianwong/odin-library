@@ -127,7 +127,7 @@ input[value="New Book"]:active {
 .remove-book {
     padding: 0;
     align-self: flex-end;
-    margin: 5px 5px 0 0;
+    margin: 10px 10px 0 0;
 }
 
 #cancel-button {
