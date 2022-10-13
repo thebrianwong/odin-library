@@ -71,7 +71,10 @@ form,
 }
 
 .book-container {
-    margin: 16px
+    display: flex;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 20%));
+    margin: 16px;
 }
 
 form,
@@ -86,6 +89,9 @@ form,
     background-size: 100% 100%;
     border: solid 2px lightgray;
     margin: 0 2.5px;
+    text-align: center;
+    overflow-wrap: anywhere;
+    width: 222px;
 }
 
 .book > * {
