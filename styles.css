@@ -198,7 +198,7 @@ clicking on the New Book button */
 form {
     background-color: white;
     color: black;
-    position: absolute;
+    position: fixed;
     width: 500px;
     left: calc(50vw - (500px / 2));
     overflow: static;
