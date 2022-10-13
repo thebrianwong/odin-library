@@ -75,6 +75,7 @@ form,
     flex-wrap: wrap;
     grid-template-columns: repeat(auto-fit, minmax(100px, 20%));
     margin: 16px;
+    min-height: 378px;
 }
 
 form,
