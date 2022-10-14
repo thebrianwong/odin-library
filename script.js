@@ -85,10 +85,12 @@ const addRemoveBookButton = (bookCard) => {
 // Adds properties of the newly added Book object to the new book's DOM element
 const addBookDetails= (bookCard, newBook) => {
     const NUMOFPTAG = 4;
+    const bookDetails = document.createElement("div");
+    bookDetails.classList.add("book-information");
     const title = document.createElement("h2");
     title.classList.add("title");
     title.textContent = newBook.title;
-    bookCard.appendChild(title);
+    bookDetails.appendChild(title);
     for (let i = 0; i < NUMOFPTAG; i++) {
         const paragraph = document.createElement("p");
         if (i === 0) {
@@ -108,17 +110,19 @@ const addBookDetails= (bookCard, newBook) => {
                 paragraph.textContent = `Rating: None`;
             }
         }
-        bookCard.appendChild(paragraph);
+        bookDetails.appendChild(paragraph);
     }
+    bookCard.appendChild(bookDetails);
 }
 
 // Creates change read status button DOM element and adds functionality to cycle through read statuses
-const addChangeReadStatusButton = (bookCard, newBook) => {
+const addChangeReadStatusButton = (bookCard, newBook, bookButtons) => {
     const readStatusButton = document.createElement("button");
     readStatusButton.setAttribute("type", "button");
     readStatusButton.classList.add("change-read-button");
     readStatusButton.textContent = "Change Read Status";
-    bookCard.appendChild(readStatusButton);
+    bookButtons.appendChild(readStatusButton);
+    bookCard.appendChild(bookButtons);
     readStatusButton.addEventListener("click", () => {
         newBook.changeReadStatus();
         const bookReadStatus = bookCard.querySelector(".read");
@@ -127,16 +131,17 @@ const addChangeReadStatusButton = (bookCard, newBook) => {
 }
 
 // Creates change rating button and selection DOM elements and adds functionality to choose new ratings
-const addChangeRatingButton = (bookCard, newBook) => {
+const addChangeRatingButton = (bookCard, newBook, bookButtons) => {
     const changeRatingButton = document.createElement("button");
     changeRatingButton.setAttribute("type", "button");
     changeRatingButton.classList.add("change-rating-button");
     changeRatingButton.textContent = "Change Rating";
-    bookCard.appendChild(changeRatingButton);
+    bookButtons.appendChild(changeRatingButton);
     const ratingSelection = document.createElement("select");
-    bookCard.appendChild(ratingSelection);
     ratingSelection.setAttribute("name", "new-rating");
     ratingSelection.classList.add("change-rating-options");
+    bookButtons.appendChild(ratingSelection);
+    bookCard.appendChild(bookButtons);
     // ratingSelection.setAttribute("id", "new-rating") Not sure if necessary
     for (let i = 0; i <= 5; i++) {
         const option = document.createElement("option");
@@ -165,13 +170,15 @@ const displayNewlyAddedBook = () => {
     const bookContainer = document.querySelector(".book-container");
     const newBook = library[library.length - 1];
     const bookCard = document.createElement("div");
+    const bookButtons = document.createElement("div");
+    bookButtons.classList.add("book-buttons");
     bookCard.dataset.indexNumber = library.length - 1;
     bookCard.classList.add("book");
     bookContainer.appendChild(bookCard);
     addRemoveBookButton(bookCard);
     addBookDetails(bookCard, newBook);
-    addChangeReadStatusButton(bookCard, newBook);
-    addChangeRatingButton(bookCard, newBook);
+    addChangeReadStatusButton(bookCard, newBook, bookButtons);
+    addChangeRatingButton(bookCard, newBook, bookButtons);
 }
 
 const addFormDim = () => {
