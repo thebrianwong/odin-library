@@ -100,6 +100,7 @@ form,
 .book-information,
 .book-buttons {
     margin: 8px 10px;
+    flex: auto;
 }
 
 .book h2 {
@@ -115,6 +116,17 @@ form,
                  0px -1px 0px black,
                  1px 0px 0px black, 
                  -1px 0px 0px black;
+}
+
+.book-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.book-buttons > * {
+    width: fit-content;
 }
 
 .change-rating-options {
