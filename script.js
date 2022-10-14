@@ -95,10 +95,10 @@ const addBookDetails= (bookCard, newBook) => {
         const paragraph = document.createElement("p");
         if (i === 0) {
             paragraph.classList.add("author");
-            paragraph.textContent = newBook.author;
+            paragraph.textContent = `By ${newBook.author}`;
         } else if (i === 1) {
             paragraph.classList.add("pages");
-            paragraph.textContent = `${newBook.pages} pages`;
+            paragraph.textContent = `${newBook.pages} Pages`;
         } else if (i === 2) {
             paragraph.classList.add("read");
             paragraph.textContent = newBook.read;
