@@ -59,14 +59,18 @@ form,
     justify-content: flex-end;
 }
 
+.book-buttons > *,
 #new-book-button {
     background-color: #9d7dc7;
     color: white;
     outline: none;
     border: solid 2px lightgray;
     border-radius: 8px;
-    margin: 10px 10px 0 0;
     height: 35px;
+}
+
+#new-book-button {
+    margin: 10px 10px 0 0;
     width: 125px;
 }
 
@@ -179,8 +183,8 @@ button:hover {
     cursor: pointer;
 }
 
-button:active {
-    box-shadow: inset 0 2px 2px gray;
+#new-book-button:active {
+    box-shadow: inset 0 6px 2px gray;
 }
 
 .form-dim {
