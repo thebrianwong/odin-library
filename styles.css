@@ -97,7 +97,8 @@ form,
     min-height: 369px;
 }
 
-.book > * {
+.book-information,
+.book-buttons {
     margin: 8px 10px;
 }
 
