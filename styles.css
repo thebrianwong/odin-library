@@ -107,6 +107,7 @@ form,
     margin-top: 16px;
 }
 
+.header-container *,
 .title,
 .author,
 .pages,
