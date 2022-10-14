@@ -9,12 +9,12 @@ function Book(title, author, pages, read, rating) {
 }
 
 Book.prototype.changeReadStatus = function() {
-    if (this.read === "Yes") {
-        this.read = "No";
-    } else if (this.read === "No") {
+    if (this.read === "Have Read") {
+        this.read = "Have Not Read";
+    } else if (this.read === "Have Not Read") {
         this.read = "Currently Reading";
     } else {
-        this.read = "Yes";
+        this.read = "Have Read";
     }
 }
 
@@ -233,6 +233,6 @@ addSubmitFormClicker();
 addCancelFormClicker();
 
 // Add example book
-const exampleBook = new Book("Moby Dick (Example)", "Herman Melville", 378, "No", 4);
+const exampleBook = new Book("Moby Dick (Example)", "Herman Melville", 378, "Have Not Read", 4);
 library.push(exampleBook);
 displayNewlyAddedBook();
