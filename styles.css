@@ -130,6 +130,7 @@ form,
 }
 
 .book-buttons {
+    margin-bottom: 11px;
     justify-content: space-evenly;
 }
 
