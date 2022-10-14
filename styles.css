@@ -15,7 +15,7 @@ body {
     border: solid 5px brown;
     display: flex;
     flex-direction: column;
-    margin: 10vh auto 0;
+    margin: 5vh auto;
     width: 80%;
 }
 
