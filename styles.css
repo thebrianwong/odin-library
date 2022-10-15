@@ -198,7 +198,7 @@ button:hover {
 }
 
 legend {
-    margin: 0 auto 2.5px;
+    margin: 0 auto 5px;
 }
 
 label {
@@ -312,4 +312,5 @@ form {
     display: none;
     text-align: center;
     color: red;
+    margin-bottom: 10px;
 }
