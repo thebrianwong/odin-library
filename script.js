@@ -26,6 +26,22 @@ Book.prototype.changeRating = function(newRating) {
     }
 }
 
+const validateBookDetails = () => {
+    let validDetails = true;
+    const inputTitle = document.querySelector("#input-title");
+    const inputAuthor = document.querySelector("#input-author");
+    const inputPages = document.querySelector("#input-pages");
+    const inputArray = [inputTitle, inputAuthor, inputPages];
+    for (input in inputArray) {
+        if (inputArray[input].value.trim().length < 1) {
+            inputArray[input].placeholder = `You forgot to add the ${inputArray[input].name}!`;
+            
+            validDetails = false
+        }
+    }
+    return validDetails;
+}
+
 const addNewBookToLibrary = () => {
     const inputTitle = document.querySelector("#input-title").value;
     const inputAuthor = document.querySelector("#input-author").value;
@@ -212,9 +228,11 @@ const addFormButtonClicker = () => {
 const addSubmitFormClicker = () => {
     const submitFormButton = document.querySelector("#add-book");
     submitFormButton.addEventListener("click", () => {
-        addNewBookToLibrary();
-        resetNewBookFormValues();
-        displayNewlyAddedBook();
+        if (validateBookDetails() === true) {
+            addNewBookToLibrary();
+            resetNewBookFormValues();
+            displayNewlyAddedBook();
+        }
     })
 }
 
