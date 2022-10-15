@@ -31,13 +31,34 @@ const validateBookDetails = () => {
     const inputTitle = document.querySelector("#input-title");
     const inputAuthor = document.querySelector("#input-author");
     const inputPages = document.querySelector("#input-pages");
-    const inputArray = [inputTitle, inputAuthor, inputPages];
-    for (input in inputArray) {
-        if (inputArray[input].value.trim().length < 1) {
-            inputArray[input].placeholder = `You forgot to add the ${inputArray[input].name}!`;
-            
+    const inputNonRadio = [inputTitle, inputAuthor, inputPages];
+    for (input in inputNonRadio) {
+        const inputErrorMessage = document.querySelector(`#${inputNonRadio[input].name}-error`);
+        if (inputNonRadio[input].value.trim().length < 1) {
+            inputErrorMessage.style.display = "block";
             validDetails = false
+        } else {
+            inputErrorMessage.style.display = "none";
         }
+    }
+    const inputRadioButtons = document.querySelector(".radio-buttons");
+    const radioButtonsList = Array.from(inputRadioButtons.querySelectorAll("input"));
+    const radioButtonsErrorMessage = document.querySelector("#read-status-error");
+    let validRadioButtons = false;
+    for (button in radioButtonsList) {
+        const radioButton = radioButtonsList[button];
+        console.log(radioButton)
+        if (radioButton.checked === true) {
+            console.log("checked")
+            validRadioButtons = true
+            break;
+        }
+    }
+    if (!validRadioButtons) {
+        radioButtonsErrorMessage.style.display = "block";
+        validDetails = false;
+    } else {
+        radioButtonsErrorMessage.style.display = "none";
     }
     return validDetails;
 }
