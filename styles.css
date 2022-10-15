@@ -225,8 +225,23 @@ label[for="input-title"] {
     margin-bottom: 25px;
 }
 
-input[type="radio"] {
+input {
     appearance: none;
+}
+
+input[type="text"],
+input[type="tel"] {
+    border: solid 2px lightgray;
+    border-radius: 8px;
+}
+
+input[type="text"]:focus,
+input[type="tel"]:focus {
+    outline: solid 2px darkgray;
+    border-color: rgba(0, 0, 0, 0);
+}
+
+input[type="radio"] {
     background-color: white;
     height: 15px;
     width: 15px;
