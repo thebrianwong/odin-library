@@ -239,6 +239,10 @@ input[type="radio"]:checked {
     background-color: #9d7dc7;
 }
 
+#input-rating {
+    margin-left: 5px;
+}
+
 /* This will probably be used for the form when it appears after
 clicking on the New Book button */
 form {
