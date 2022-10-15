@@ -60,7 +60,9 @@ form,
 }
 
 .book-buttons > *,
-#new-book-button {
+#new-book-button,
+#input-rating,
+#add-book {
     background-color: #9d7dc7;
     color: white;
     outline: none;
