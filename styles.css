@@ -261,7 +261,7 @@ input[type="radio"]:checked {
 /* This will probably be used for the form when it appears after
 clicking on the New Book button */
 form {
-    background-color: white;
+    background-color: whitesmoke;
     color: black;
     position: fixed;
     width: 500px;
