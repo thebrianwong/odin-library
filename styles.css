@@ -306,3 +306,15 @@ form {
     animation-fill-mode: forwards;
     animation-duration: 0.5s;
 }
+
+
+#input-title::after {
+    content: "tesddddt";
+    height: 100%;
+    width: 100px;
+    color: black;
+    display: inline-block;
+    top: 10%;
+    z-index: 4;
+    position: relative;
+}
