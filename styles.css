@@ -68,7 +68,9 @@ a {
     text-shadow: none;
 }
 
-.book-buttons > *,
+.change-read-button,
+.change-rating-button,
+.change-rating-options,
 #new-book-button,
 #input-rating,
 #add-book {
@@ -199,10 +201,13 @@ button:hover {
     cursor: pointer;
 }
 
-select:focus-visible,
-input:focus-visible,
-button:focus-visible {
-    border-color: black !important;
+.change-read-button:focus-visible,
+.change-rating-button:focus-visible,
+.change-rating-options:focus-visible,
+#new-book-button:focus-visible,
+#input-rating:focus-visible,
+#add-book:focus-visible {
+    border-color: black;
 }
 
 button:active,
