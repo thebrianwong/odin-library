@@ -284,7 +284,7 @@ form {
     width: clamp(250px, 75%, 500px);
     left: calc(50% - (clamp(250px, 75%, 500px) / 2));
     overflow: static;
-    top: -40%;
+    top: -55%;
     opacity: 0;
     z-index: 1;
     box-shadow: 0px 1px 8px 1px black;
@@ -293,7 +293,7 @@ form {
 @keyframes form-showing-animation {
     from {
         opacity: 0;
-        top: -40%;
+        top: -55%;
     }
     to {
         opacity: 1;
@@ -308,7 +308,7 @@ form {
     }
     to {
         opacity: 0;
-        top: -40%;
+        top: -55%;
     }
 }
 
@@ -340,6 +340,10 @@ form {
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+
+    label[for="input-rating"] {
+        text-align: center;
     }
 
     #input-rating {
