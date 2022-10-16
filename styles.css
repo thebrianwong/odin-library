@@ -54,9 +54,18 @@ form,
     justify-content: center;
 }
 
-.new-book-container {
+.top-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+}
+
+.credits-container {
+    margin-left: 10px;
+}
+
+a {
+    color: white;
+    text-shadow: none;
 }
 
 .book-buttons > *,
@@ -113,6 +122,7 @@ form,
     margin-top: 16px;
 }
 
+.credits-container p,
 .header-container *,
 .title,
 .author,
