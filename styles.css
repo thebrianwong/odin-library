@@ -334,3 +334,17 @@ form {
     margin: 0 auto 10px;
     font-weight: 600;
 }
+
+@media (max-width: 501px) {
+    .rating-select {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #input-rating {
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
