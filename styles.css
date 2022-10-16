@@ -34,7 +34,7 @@ body {
     margin-bottom: 0;
     padding-bottom: 25px;
     position: relative;
-    width: 500px;
+    width: 46%;
 }
 
 .header-container p::after {
@@ -83,6 +83,8 @@ a {
 #new-book-button {
     margin: 10px 10px 0 0;
     width: 125px;
+    min-height: 35px;
+    height: fit-content;
 }
 
 .book-container {
