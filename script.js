@@ -20,7 +20,7 @@ Book.prototype.changeReadStatus = function() {
 
 Book.prototype.changeRating = function(newRating) {
     if (newRating !== NaN) {
-        this.rating = newRating;
+        this.rating = Number(newRating);
     } else {
         this.rating = "";
     }
@@ -76,7 +76,7 @@ const addNewBookToLibrary = () => {
         }
     }
     const inputRating = document.querySelector("#input-rating").value;
-    const newBook = new Book(inputTitle, inputAuthor, inputPages, inputReadStatus, inputRating);
+    const newBook = new Book(inputTitle, inputAuthor, Number(inputPages), inputReadStatus, Number(inputRating));
     library.push(newBook);
 }
 
