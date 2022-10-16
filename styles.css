@@ -193,11 +193,14 @@ input[value="New Book"]:active {
     padding: 0;
 }
 
+select:hover,
+input:hover,
 button:hover {
     cursor: pointer;
 }
 
-#new-book-button:active {
+button:active,
+input[type="button"]:active {
     box-shadow: inset 0 6px 2px gray;
 }
 
