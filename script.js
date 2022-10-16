@@ -19,10 +19,10 @@ Book.prototype.changeReadStatus = function() {
 }
 
 Book.prototype.changeRating = function(newRating) {
-    if (newRating !== NaN) {
+    if (newRating < 0) {
         this.rating = Number(newRating);
     } else {
-        this.rating = "";
+        this.rating = undefined;
     }
 }
 
@@ -74,11 +74,11 @@ const validateBookDetails = () => {
 }
 
 const addNewBookToLibrary = () => {
-    const inputTitle = document.querySelector("#input-title").value;
-    const inputAuthor = document.querySelector("#input-author").value;
-    const inputPages = document.querySelector("#input-pages").value;
-    const inputRadioButtons = document.querySelector(".radio-buttons");
-    const radioButtonsList = Array.from(inputRadioButtons.querySelectorAll("input"));
+    let inputTitle = document.querySelector("#input-title").value;
+    let inputAuthor = document.querySelector("#input-author").value;
+    let inputPages = document.querySelector("#input-pages").value;
+    let inputRadioButtons = document.querySelector(".radio-buttons");
+    let radioButtonsList = Array.from(inputRadioButtons.querySelectorAll("input"));
     let inputReadStatus = "";
     for (button in radioButtonsList) {
         const radioButton = radioButtonsList[button];
@@ -87,8 +87,14 @@ const addNewBookToLibrary = () => {
             break;
         }
     }
-    const inputRating = document.querySelector("#input-rating").value;
-    const newBook = new Book(inputTitle, inputAuthor, Number(inputPages), inputReadStatus, Number(inputRating));
+    let inputRating = document.querySelector("#input-rating").value;
+    console.log(inputRating)
+    if (inputRating !== "") {
+        inputRating = Number(inputRating);
+    } else {
+        inputRating = undefined
+    }
+    const newBook = new Book(inputTitle, inputAuthor, Number(inputPages), inputReadStatus, inputRating);
     library.push(newBook);
 }
 
@@ -151,7 +157,7 @@ const addBookDetails= (bookCard, newBook) => {
             paragraph.textContent = newBook.read;
         } else {
             paragraph.classList.add("rating");
-            if (newBook.rating !== "") {
+            if (newBook.rating !== undefined) {
                 paragraph.textContent = `Rating: ${newBook.rating}/5`;
             } else {
                 paragraph.textContent = `Rating: None`;
