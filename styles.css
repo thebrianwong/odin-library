@@ -304,16 +304,19 @@ form {
     opacity: 0;
     z-index: 1;
     box-shadow: 0px 1px 8px 1px black;
+    visibility: hidden;
 }
 
 @keyframes form-showing-animation {
     from {
         opacity: 0;
         top: -55%;
+        visibility: hidden;
     }
     to {
         opacity: 1;
         top: 20%;
+        visibility: visible;
     }
 }
 
@@ -321,10 +324,12 @@ form {
     from {
         opacity: 1;
         top: 20%;
+        visibility: visible;
     }
     to {
         opacity: 0;
         top: -55%;
+        visibility: hidden;
     }
 }
 
