@@ -199,6 +199,12 @@ button:hover {
     cursor: pointer;
 }
 
+select:focus-visible,
+input:focus-visible,
+button:focus-visible {
+    border-color: black !important;
+}
+
 button:active,
 input[type="button"]:active {
     box-shadow: inset 0 6px 2px gray;
