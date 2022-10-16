@@ -19,7 +19,7 @@ Book.prototype.changeReadStatus = function() {
 }
 
 Book.prototype.changeRating = function(newRating) {
-    if (newRating < 0) {
+    if (newRating > 0) {
         this.rating = Number(newRating);
     } else {
         this.rating = undefined;
@@ -160,7 +160,7 @@ const addBookDetails= (bookCard, newBook) => {
             if (newBook.rating !== undefined) {
                 paragraph.textContent = `Rating: ${newBook.rating}/5`;
             } else {
-                paragraph.textContent = `Rating: None`;
+                paragraph.textContent = "No Rating";
             }
         }
         bookDetails.appendChild(paragraph);
