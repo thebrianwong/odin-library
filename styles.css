@@ -281,8 +281,8 @@ form {
     background-color: whitesmoke;
     color: black;
     position: fixed;
-    width: clamp(250px, 75vw, 500px);
-    left: calc(50vw - (clamp(250px, 75vw, 500px) / 2));
+    width: clamp(250px, 75%, 500px);
+    left: calc(50% - (clamp(250px, 75%, 500px) / 2));
     overflow: static;
     top: -40%;
     opacity: 0;
