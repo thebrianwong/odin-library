@@ -26,12 +26,17 @@ Book.prototype.changeRating = function(newRating) {
     }
 }
 
+const formInputTitleElement = document.querySelector("#input-title");
+const formInputAuthorElement = document.querySelector("#input-author");
+const formInputPagesElement = document.querySelector("#input-pages");
+const formRadioButtonsSection = document.querySelector(".radio-buttons");
+const radioButtonsArray = Array.from(formRadioButtonsSection.querySelectorAll("input"));
+const formInputRatingsElement = document.querySelector("#input-rating");
+
 const validateBookDetails = () => {
     let validDetails = true;
-    const inputTitle = document.querySelector("#input-title");
-    const inputAuthor = document.querySelector("#input-author");
-    const inputPages = document.querySelector("#input-pages");
-    const inputTitleAndAuthor = [inputTitle, inputAuthor];
+    let validRadioButtons = false;
+    const inputTitleAndAuthor = [formInputTitleElement, formInputAuthorElement];
     inputTitleAndAuthor.forEach((input) => {
         const inputErrorMessage = document.querySelector(`#${input.name}-error`);
         if (input.value.trim().length < 1) {
@@ -41,24 +46,21 @@ const validateBookDetails = () => {
             inputErrorMessage.style.display = "none";
         }
     })
-    const inputPagesErrorMessage = document.querySelector("#pages-error");
-    if (inputPages.value.trim().length < 1 || isNaN(inputPages.value.trim())) {
-        inputPagesErrorMessage.style.display = "block";
+    const formPagesErrorMessage = document.querySelector("#pages-error");
+    if (formInputPagesElement.value.trim().length < 1 || isNaN(formInputPagesElement.value.trim())) {
+        formPagesErrorMessage.style.display = "block";
         validDetails = false
-        if (inputPages.value.trim().length < 1) {
-            inputPagesErrorMessage.textContent = "Missing Pages!";
+        if (formInputPagesElement.value.trim().length < 1) {
+            formPagesErrorMessage.textContent = "Missing Pages!";
         } else {
-            inputPagesErrorMessage.textContent = "That's Not a Valid Number!";
+            formPagesErrorMessage.textContent = "That's Not a Valid Number!";
         }
     } else {
-        inputPagesErrorMessage.style.display = "none";
+        formPagesErrorMessage.style.display = "none";
     }
-    const inputRadioButtons = document.querySelector(".radio-buttons");
-    const radioButtonsList = Array.from(inputRadioButtons.querySelectorAll("input"));
     const radioButtonsErrorMessage = document.querySelector("#read-status-error");
-    let validRadioButtons = false;
-    for (button in radioButtonsList) {
-        const radioButton = radioButtonsList[button];
+    for (button in radioButtonsArray) {
+        const radioButton = radioButtonsArray[button];
         if (radioButton.checked === true) {
             validRadioButtons = true
             break;
@@ -74,48 +76,39 @@ const validateBookDetails = () => {
 }
 
 const addNewBookToLibrary = () => {
-    let inputTitle = document.querySelector("#input-title").value;
-    let inputAuthor = document.querySelector("#input-author").value;
-    let inputPages = document.querySelector("#input-pages").value;
-    let inputRadioButtons = document.querySelector(".radio-buttons");
-    let radioButtonsList = Array.from(inputRadioButtons.querySelectorAll("input"));
+    let formTitleValue = formInputTitleElement.value;
+    let formAuthorValue = formInputAuthorElement.value;
+    let formPagesValue = formInputPagesElement.value;
     let inputReadStatus = "";
-    for (button in radioButtonsList) {
-        const radioButton = radioButtonsList[button];
+    let formRatingsValue = formInputRatingsElement.value;
+    for (button in radioButtonsArray) {
+        const radioButton = radioButtonsArray[button];
         if (radioButton.checked === true) {
             inputReadStatus = radioButton.value;
             break;
         }
     }
-    let inputRating = document.querySelector("#input-rating").value;
-    console.log(inputRating)
-    if (inputRating !== "") {
-        inputRating = Number(inputRating);
+    if (formRatingsValue !== "") {
+        formRatingsValue = Number(formRatingsValue);
     } else {
-        inputRating = undefined
+        formRatingsValue = undefined
     }
-    const newBook = new Book(inputTitle, inputAuthor, Number(inputPages), inputReadStatus, inputRating);
+    const newBook = new Book(formTitleValue, formAuthorValue, Number(formPagesValue), inputReadStatus, formRatingsValue);
     library.push(newBook);
 }
 
 const resetNewBookFormValues = () => {
-    const inputTitle = document.querySelector("#input-title");
-    inputTitle.value = "";
-    const inputAuthor = document.querySelector("#input-author");
-    inputAuthor.value = "";
-    const inputPages = document.querySelector("#input-pages");
-    inputPages.value = "";
-    const inputRadioButtons = document.querySelector(".radio-buttons");
-    const radioButtonsList = Array.from(inputRadioButtons.querySelectorAll("input"));
-    for (button in radioButtonsList) {
-        const radioButton = radioButtonsList[button];
+    formInputTitleElement.value = "";
+    formInputAuthorElement.value = "";
+    formInputPagesElement.value = "";
+    for (button in radioButtonsArray) {
+        const radioButton = radioButtonsArray[button];
         if (radioButton.checked === true) {
             radioButton.checked = false;
             break;
         }
     }
-    const inputRating = document.querySelector("#input-rating");
-    inputRating.value = "";
+    formInputRatingsElement.value = "";
 }
 
 // Creates remove button DOM element and adds functionality to remove corresponding book DOM element
@@ -136,7 +129,7 @@ const addRemoveBookButton = (bookCard) => {
 }
 
 // Adds properties of the newly added Book object to the new book's DOM element
-const addBookDetails= (bookCard, newBook) => {
+const addBookDetails = (bookCard, newBook) => {
     const NUMOFPTAG = 4;
     const bookDetails = document.createElement("div");
     bookDetails.classList.add("book-information");
