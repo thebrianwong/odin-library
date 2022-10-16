@@ -31,8 +31,8 @@ const validateBookDetails = () => {
     const inputTitle = document.querySelector("#input-title");
     const inputAuthor = document.querySelector("#input-author");
     const inputPages = document.querySelector("#input-pages");
-    const inputNonRadio = [inputTitle, inputAuthor, inputPages];
-    inputNonRadio.forEach((input) => {
+    const inputTitleAndAuthor = [inputTitle, inputAuthor];
+    inputTitleAndAuthor.forEach((input) => {
         const inputErrorMessage = document.querySelector(`#${input.name}-error`);
         if (input.value.trim().length < 1) {
             inputErrorMessage.style.display = "block";
@@ -41,6 +41,18 @@ const validateBookDetails = () => {
             inputErrorMessage.style.display = "none";
         }
     })
+    const inputPagesErrorMessage = document.querySelector("#pages-error");
+    if (inputPages.value.trim().length < 1 || isNaN(inputPages.value.trim())) {
+        inputPagesErrorMessage.style.display = "block";
+        validDetails = false
+        if (inputPages.value.trim().length < 1) {
+            inputPagesErrorMessage.textContent = "Missing Pages!";
+        } else {
+            inputPagesErrorMessage.textContent = "That's Not a Valid Number!";
+        }
+    } else {
+        inputPagesErrorMessage.style.display = "none";
+    }
     const inputRadioButtons = document.querySelector(".radio-buttons");
     const radioButtonsList = Array.from(inputRadioButtons.querySelectorAll("input"));
     const radioButtonsErrorMessage = document.querySelector("#read-status-error");
