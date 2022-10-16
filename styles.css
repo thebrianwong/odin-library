@@ -250,14 +250,16 @@ input {
     appearance: none;
 }
 
-input[type="text"],
-input[type="tel"] {
+#input-title,
+#input-author,
+#input-pages {
     border: solid 2px lightgray;
     border-radius: 8px;
 }
 
-input[type="text"]:focus,
-input[type="tel"]:focus {
+#input-title:focus,
+#input-author:focus,
+#input-pages:focus {
     outline: solid 2px darkgray;
     border-color: rgba(0, 0, 0, 0);
 }
