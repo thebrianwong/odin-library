@@ -218,6 +218,13 @@ const displayNewlyAddedBook = () => {
     addChangeRatingButton(bookCard, newBook, bookButtons);
 }
 
+const hideFormErrorMessages = () => {
+    const formErrorMessages = document.querySelectorAll(".error-message");
+    formErrorMessages.forEach((message) => {
+        message.style.display = "none";
+    })
+}
+
 const addFormDim = () => {
     const bodyElement = document.querySelector("body");
     const dimFilter = document.createElement("div");
@@ -226,6 +233,7 @@ const addFormDim = () => {
     bodyElement.appendChild(dimFilter);
     dimFilter.addEventListener("click", () => {
         removeFormDim();
+        hideFormErrorMessages();
         newBookForm.classList.remove("form-showing");
         newBookForm.classList.add("form-hiding");
     })
@@ -262,6 +270,7 @@ const addCancelFormClicker = () => {
     const newBookForm = document.querySelector("form");
     cancelButton.addEventListener("click", () => {
         removeFormDim();
+        hideFormErrorMessages();
         newBookForm.classList.remove("form-showing");
         newBookForm.classList.add("form-hiding");
     })
