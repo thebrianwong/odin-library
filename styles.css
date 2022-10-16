@@ -2,56 +2,17 @@
     color: white;
 }
 
-* {
-    border: solid 1px red;
-}
-
 body {
     background-image: url(assets/library_background.jpg);
 }
 
 .container {
-    background-color: rgba(131, 105, 83, 0.8);
-    border: solid 5px brown;
     display: flex;
     flex-direction: column;
+    border: solid 5px brown;
     margin: 5vh auto;
     width: 80%;
-}
-
-.header-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.header-container * {
-    color: white;
-    text-align: center;
-}
-
-.header-container p {
-    margin-bottom: 0;
-    padding-bottom: 25px;
-    position: relative;
-    width: 46%;
-}
-
-.header-container p::after {
-    content: "";
-    background: black;
-    position: absolute;
-    bottom: 0;
-    left: -10%;
-    height: 5px;
-    width: 120%;
-}
-
-form,
-.book-container,
-.book {
-    display: flex;
-    justify-content: center;
+    background-color: rgba(131, 105, 83, 0.8);
 }
 
 .top-container {
@@ -68,33 +29,46 @@ a {
     text-shadow: none;
 }
 
-.change-read-button,
-.change-rating-button,
-.change-rating-options,
-#new-book-button,
-#input-rating,
-#add-book {
-    background-color: #9d7dc7;
-    color: white;
-    outline: none;
-    border: solid 2px lightgray;
-    border-radius: 8px;
-    height: 35px;
-}
-
 #new-book-button {
     margin: 10px 10px 0 0;
-    width: 125px;
-    min-height: 35px;
     height: fit-content;
+    min-height: 35px;
+    width: 125px;
 }
 
-.book-container {
+.header-container {
     display: flex;
-    flex-wrap: wrap;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 20%));
-    margin: 16px;
-    min-height: 378px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header-container * {
+    color: white;
+    text-align: center;
+}
+
+.header-container p {
+    position: relative;
+    margin-bottom: 0;
+    padding-bottom: 25px;
+    width: 46%;
+}
+
+.header-container p::after {
+    content: "";
+    background: black;
+    position: absolute;
+    left: -10%;
+    bottom: 0;
+    height: 5px;
+    width: 120%;
+}
+
+form,
+.book-container,
+.book {
+    display: flex;
+    justify-content: center;
 }
 
 form,
@@ -103,40 +77,29 @@ form,
     align-items: center;
 }
 
+.book-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 16px;
+    min-height: 378px;
+}
+
 .book {
-    background-color: whitesmoke;
+    justify-content: space-between;
+    text-align: center;
+    overflow-wrap: anywhere;
     background-image: url(assets/card.png);
     background-size: 100% 100%;
     border: solid 2px lightgray;
     margin: 2.5px;
-    text-align: center;
-    overflow-wrap: anywhere;
-    width: 222px;
-    justify-content: space-between;
     min-height: 369px;
+    width: 222px;
 }
 
-.book-information,
-.book-buttons {
-    margin: 8px 10px;
-    flex: auto;
-}
-
-.book h2 {
-    margin-top: 16px;
-}
-
-.credits-container p,
-.header-container *,
-.title,
-.author,
-.pages,
-.read,
-.rating {
-    text-shadow: 0px 1px 0px black,
-                 0px -1px 0px black,
-                 1px 0px 0px black, 
-                 -1px 0px 0px black;
+.remove-book {
+    align-self: flex-end;
+    margin: 10px 10px 0 0;
+    padding: 0;
 }
 
 .book-information,
@@ -144,15 +107,21 @@ form,
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex: auto;
+    margin: 8px 10px;
 }
 
 .book-information {
     justify-content: space-between;
 }
 
+.book h2 {
+    margin-top: 16px;
+}
+
 .book-buttons {
-    margin-bottom: 14px;
     justify-content: space-evenly;
+    margin-bottom: 14px;
 }
 
 .book-buttons > * {
@@ -163,29 +132,62 @@ form,
     margin: clamp(5px, 10%, 30px) 0;
 }
 
-.change-rating-options {
-    /* margin-top: 0;
-    margin-bottom: 16px; */
+form {
+    visibility: hidden;
+    position: fixed;
+    background-color: whitesmoke;
+    color: black;
+    box-shadow: 0px 1px 8px 1px black;
+    width: clamp(250px, 75%, 500px);
+    left: calc(50% - (clamp(250px, 75%, 500px) / 2));
+    top: -55%;
+    opacity: 0;
+    z-index: 1;
 }
 
-input[value="Submit"]:active,
-input[value="New Book"]:active {
-    background-color: aqua;
-    cursor: pointer;
+@keyframes form-showing-animation {
+    from {
+        visibility: hidden;
+        opacity: 0;
+        top: -55%;
+        
+    }
+    to {
+        visibility: visible;
+        opacity: 1;
+        top: 20%;
+    }
 }
 
-.remove-book,
-#cancel-button {
-    background: none;
-    border: none;
-    height: 24px;
-    width: 24px;
+@keyframes form-hiding-animation {
+    from {
+        visibility: visible;
+        opacity: 1;
+        top: 20%;
+    }
+    to {
+        visibility: hidden;
+        opacity: 0;
+        top: -55%;
+    }
 }
 
-.remove-book {
-    padding: 0;
-    align-self: flex-end;
-    margin: 10px 10px 0 0;
+.form-hiding {
+    animation-name: form-hiding-animation;
+    animation-fill-mode: forwards;
+    animation-duration: 0.5s;
+}
+
+.form-showing {
+    animation-name: form-showing-animation;
+    animation-fill-mode: forwards;
+    animation-duration: 0.5s;
+}
+
+form > input,
+.radio-buttons,
+.rating-select {
+    margin-bottom: 10px;
 }
 
 #cancel-button {
@@ -195,60 +197,22 @@ input[value="New Book"]:active {
     padding: 0;
 }
 
-select:hover,
-input:hover,
-button:hover {
-    cursor: pointer;
-}
-
-.change-read-button:focus-visible,
-.change-rating-button:focus-visible,
-.change-rating-options:focus-visible,
-#new-book-button:focus-visible,
-#input-rating:focus-visible,
-#add-book:focus-visible {
-    border-color: black;
-}
-
-button:active,
-input[type="button"]:active {
-    box-shadow: inset 0 6px 2px gray;
-}
-
-.form-dim {
-    position: fixed;
-    background-color: rgba(100,100,100,0.5);
-    top: 0%;
-    height: 100%;
-    width: 100%;
-}
-
-legend {
-    margin: 0 auto 5px;
+.error-message {
+    display: none;
+    text-align: center;
+    background-color: red;
+    color: white;
+    width: fit-content;
+    margin: 0 auto 10px;
+    font-weight: 600;
 }
 
 label {
     margin-bottom: 5px;
 }
 
-form > input {
-    margin-bottom: 10px;
-}
-
-.radio-buttons {
-    margin-bottom: 10px;
-}
-
-.rating-select {
-    margin-bottom: 10px;
-}
-
 label[for="input-title"] {
     margin-top: 25px;
-}
-
-#add-book {
-    margin-bottom: 25px;
 }
 
 input {
@@ -269,17 +233,17 @@ input {
     border-color: rgba(0, 0, 0, 0);
 }
 
-input[type="radio"] {
-    background-color: white;
-    height: 15px;
-    width: 15px;
-    border: solid 2px lightgray;
-    border-radius: 8px;
-    vertical-align: -2px;
+legend {
+    margin: 0 auto 5px;
 }
 
-input[type="radio"]:checked {
-    background-color: #9d7dc7;
+input[type="radio"] {
+    background-color: white;
+    border: solid 2px lightgray;
+    border-radius: 8px;
+    height: 15px;
+    width: 15px;
+    vertical-align: -2px;
 }
 
 input[type="radio"]:focus {
@@ -287,73 +251,75 @@ input[type="radio"]:focus {
     outline: solid 1px rgba(0, 0, 0, 0);
 }
 
+input[type="radio"]:checked {
+    background-color: #9d7dc7;
+}
+
 #input-rating {
     margin-left: 5px;
 }
 
-/* This will probably be used for the form when it appears after
-clicking on the New Book button */
-form {
-    background-color: whitesmoke;
-    color: black;
+#add-book {
+    margin-bottom: 25px;
+}
+
+.form-dim {
     position: fixed;
-    width: clamp(250px, 75%, 500px);
-    left: calc(50% - (clamp(250px, 75%, 500px) / 2));
-    overflow: static;
-    top: -55%;
-    opacity: 0;
-    z-index: 1;
-    box-shadow: 0px 1px 8px 1px black;
-    visibility: hidden;
+    background-color: rgba(100,100,100,0.5);
+    top: 0%;
+    height: 100%;
+    width: 100%;
 }
 
-@keyframes form-showing-animation {
-    from {
-        opacity: 0;
-        top: -55%;
-        visibility: hidden;
-    }
-    to {
-        opacity: 1;
-        top: 20%;
-        visibility: visible;
-    }
+.credits-container p,
+.header-container *,
+.book-information * {
+    text-shadow: 0px 1px 0px black,
+                 0px -1px 0px black,
+                 1px 0px 0px black, 
+                 -1px 0px 0px black;
 }
 
-@keyframes form-hiding-animation {
-    from {
-        opacity: 1;
-        top: 20%;
-        visibility: visible;
-    }
-    to {
-        opacity: 0;
-        top: -55%;
-        visibility: hidden;
-    }
+.remove-book,
+#cancel-button {
+    background: none;
+    border: none;
+    height: 24px;
+    width: 24px;
 }
 
-.form-hiding {
-    animation-name: form-hiding-animation;
-    animation-fill-mode: forwards;
-    animation-duration: 0.5s;
-}
-
-.form-showing {
-    animation-name: form-showing-animation;
-    animation-fill-mode: forwards;
-    animation-duration: 0.5s;
-}
-
-
-.error-message {
-    display: none;
-    text-align: center;
-    background-color: red;
+.change-read-button,
+.change-rating-button,
+.change-rating-options,
+#new-book-button,
+#input-rating,
+#add-book {
+    background-color: #9d7dc7;
     color: white;
-    width: fit-content;
-    margin: 0 auto 10px;
-    font-weight: 600;
+    outline: none;
+    border: solid 2px lightgray;
+    border-radius: 8px;
+    height: 35px;
+}
+
+select:hover,
+input:hover,
+button:hover {
+    cursor: pointer;
+}
+
+.change-read-button:focus-visible,
+.change-rating-button:focus-visible,
+.change-rating-options:focus-visible,
+#new-book-button:focus-visible,
+#input-rating:focus-visible,
+#add-book:focus-visible {
+    border-color: black;
+}
+
+button:active,
+input[type="button"]:active {
+    box-shadow: inset 0 6px 2px gray;
 }
 
 @media (max-width: 501px) {
