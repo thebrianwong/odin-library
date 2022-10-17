@@ -33,6 +33,7 @@ const formRadioButtonsSection = document.querySelector(".radio-buttons");
 const radioButtonsArray = Array.from(formRadioButtonsSection.querySelectorAll("input"));
 const formInputRatingsElement = document.querySelector("#input-rating");
 
+// Checks if any input values are empty and if the pages value contain a number
 const validateBookDetails = () => {
     let validDetails = true;
     let validRadioButtons = false;
