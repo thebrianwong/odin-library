@@ -34,15 +34,15 @@ const radioButtonsArray = Array.from(formRadioButtonsSection.querySelectorAll("i
 const formInputRatingsElement = document.querySelector("#input-rating");
 
 // Checks if any input values are empty and if the pages value contain a number
-const validateBookDetails = () => {
-    let validDetails = true;
+const validateBookInformation = () => {
+    let validInformation = true;
     let validRadioButtons = false;
     const inputTitleAndAuthor = [formInputTitleElement, formInputAuthorElement];
     inputTitleAndAuthor.forEach((input) => {
         const inputErrorMessage = document.querySelector(`#${input.name}-error`);
         if (input.value.trim().length < 1) {
             inputErrorMessage.style.display = "block";
-            validDetails = false
+            validInformation = false
         } else {
             inputErrorMessage.style.display = "none";
         }
@@ -50,7 +50,7 @@ const validateBookDetails = () => {
     const formPagesErrorMessage = document.querySelector("#pages-error");
     if (formInputPagesElement.value.trim().length < 1 || isNaN(formInputPagesElement.value.trim())) {
         formPagesErrorMessage.style.display = "block";
-        validDetails = false
+        validInformation = false
         if (formInputPagesElement.value.trim().length < 1) {
             formPagesErrorMessage.textContent = "Missing Pages!";
         } else {
@@ -69,11 +69,11 @@ const validateBookDetails = () => {
     }
     if (!validRadioButtons) {
         radioButtonsErrorMessage.style.display = "block";
-        validDetails = false;
+        validInformation = false;
     } else {
         radioButtonsErrorMessage.style.display = "none";
     }
-    return validDetails;
+    return validInformation;
 }
 
 const addNewBookToLibrary = () => {
@@ -130,14 +130,14 @@ const addRemoveBookButton = (bookCard) => {
 }
 
 // Adds properties of the newly added Book object to the new book's DOM element
-const addBookDetails = (newBook, bookCard) => {
+const addBookInformation = (newBook, bookCard) => {
     const NUMOFPTAG = 4;
-    const bookDetails = document.createElement("div");
-    bookDetails.classList.add("book-information");
+    const bookInformation = document.createElement("div");
+    bookInformation.classList.add("book-information");
     const title = document.createElement("h2");
     title.classList.add("title");
     title.textContent = newBook.title;
-    bookDetails.appendChild(title);
+    bookInformation.appendChild(title);
     for (let i = 0; i < NUMOFPTAG; i++) {
         const paragraph = document.createElement("p");
         if (i === 0) {
@@ -157,9 +157,9 @@ const addBookDetails = (newBook, bookCard) => {
                 paragraph.textContent = "No Rating";
             }
         }
-        bookDetails.appendChild(paragraph);
+        bookInformation.appendChild(paragraph);
     }
-    bookCard.appendChild(bookDetails);
+    bookCard.appendChild(bookInformation);
 }
 
 // Creates change read status button DOM element and adds functionality to cycle through read statuses
@@ -223,7 +223,7 @@ const displayNewlyAddedBook = () => {
     bookCard.classList.add("book");
     bookContainer.appendChild(bookCard);
     addRemoveBookButton(bookCard);
-    addBookDetails(newBook, bookCard);
+    addBookInformation(newBook, bookCard);
     addChangeReadStatusButton(newBook, bookCard, bookButtons);
     addChangeRatingButton(newBook, bookCard, bookButtons);
 }
@@ -267,7 +267,7 @@ const addFormButtonClicker = () => {
 const addSubmitFormClicker = () => {
     const submitFormButton = document.querySelector("#add-book");
     submitFormButton.addEventListener("click", () => {
-        if (validateBookDetails() === true) {
+        if (validateBookInformation() === true) {
             addNewBookToLibrary();
             resetNewBookFormValues();
             displayNewlyAddedBook();
