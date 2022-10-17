@@ -113,31 +113,31 @@ const resetNewBookFormValues = () => {
 }
 
 // Creates remove button DOM element and adds functionality to remove corresponding book DOM element
-const addRemoveBookButton = (bookCard) => {
-    const removeButton = document.createElement("button");
-    removeButton.setAttribute("type", "button");
-    removeButton.classList.add("remove-book");
-    const removeButtonImage = document.createElement("img");
-    removeButtonImage.setAttribute("src", "assets/close_book.png");
-    removeButtonImage.setAttribute("alt", "Cancel");
-    removeButton.appendChild(removeButtonImage);
-    bookCard.appendChild(removeButton);
-    removeButton.addEventListener("click", () => {
-        indexNumber = bookCard.dataset.indexNumber;
-        library.splice(indexNumber, 1, undefined)
-        bookCard.remove();
+const addRemoveBookButton = (newBookElement) => {
+    const removeBookButton = document.createElement("button");
+    removeBookButton.setAttribute("type", "button");
+    removeBookButton.classList.add("remove-book");
+    const removeBookButtonImage = document.createElement("img");
+    removeBookButtonImage.setAttribute("src", "assets/close_book.png");
+    removeBookButtonImage.setAttribute("alt", "Cancel");
+    removeBookButton.appendChild(removeBookButtonImage);
+    newBookElement.appendChild(removeBookButton);
+    removeBookButton.addEventListener("click", () => {
+        bookIndexNumber = newBookElement.dataset.indexNumber;
+        library.splice(bookIndexNumber, 1, undefined)
+        newBookElement.remove();
     })
 }
 
 // Adds properties of the newly added Book object to the new book's DOM element
-const addBookInformation = (newBook, bookCard) => {
+const addBookInformation = (newBook, newBookElement) => {
     const NUMOFPTAG = 4;
-    const bookInformation = document.createElement("div");
-    bookInformation.classList.add("book-information");
-    const title = document.createElement("h2");
-    title.classList.add("title");
-    title.textContent = newBook.title;
-    bookInformation.appendChild(title);
+    const bookInformationSection = document.createElement("div");
+    bookInformationSection.classList.add("book-information");
+    const bookTitle = document.createElement("h2");
+    bookTitle.classList.add("title");
+    bookTitle.textContent = newBook.title;
+    bookInformationSection.appendChild(bookTitle);
     for (let i = 0; i < NUMOFPTAG; i++) {
         const paragraph = document.createElement("p");
         if (i === 0) {
@@ -157,75 +157,74 @@ const addBookInformation = (newBook, bookCard) => {
                 paragraph.textContent = "No Rating";
             }
         }
-        bookInformation.appendChild(paragraph);
+        bookInformationSection.appendChild(paragraph);
     }
-    bookCard.appendChild(bookInformation);
+    newBookElement.appendChild(bookInformationSection);
 }
 
 // Creates change read status button DOM element and adds functionality to cycle through read statuses
-const addChangeReadStatusButton = (newBook, bookCard, bookButtons) => {
-    const readStatusButton = document.createElement("button");
-    readStatusButton.setAttribute("type", "button");
-    readStatusButton.classList.add("change-read-button");
-    readStatusButton.textContent = "Change Read Status";
-    bookButtons.appendChild(readStatusButton);
-    bookCard.appendChild(bookButtons);
-    readStatusButton.addEventListener("click", () => {
+const addChangeReadStatusButton = (newBook, newBookElement, newBookButtons) => {
+    const changeReadStatusButton = document.createElement("button");
+    changeReadStatusButton.setAttribute("type", "button");
+    changeReadStatusButton.classList.add("change-read-button");
+    changeReadStatusButton.textContent = "Change Read Status";
+    newBookButtons.appendChild(changeReadStatusButton);
+    newBookElement.appendChild(newBookButtons);
+    changeReadStatusButton.addEventListener("click", () => {
         newBook.changeReadStatus();
-        const bookReadStatus = bookCard.querySelector(".read");
+        const bookReadStatus = newBookElement.querySelector(".read");
         bookReadStatus.textContent = newBook.read;
     })
 }
 
 // Creates change rating button and selection DOM elements and adds functionality to choose new ratings
-const addChangeRatingButton = (newBook, bookCard, bookButtons) => {
+const addChangeRatingButton = (newBook, newBookElement, newBookButtons) => {
     const changeRatingButton = document.createElement("button");
     changeRatingButton.setAttribute("type", "button");
     changeRatingButton.classList.add("change-rating-button");
     changeRatingButton.textContent = "Change Rating";
-    bookButtons.appendChild(changeRatingButton);
-    const ratingSelection = document.createElement("select");
-    ratingSelection.setAttribute("name", "new-rating");
-    ratingSelection.classList.add("change-rating-options");
-    bookButtons.appendChild(ratingSelection);
-    bookCard.appendChild(bookButtons);
-    // ratingSelection.setAttribute("id", "new-rating") Not sure if necessary
+    newBookButtons.appendChild(changeRatingButton);
+    const newRatingsSelection = document.createElement("select");
+    newRatingsSelection.setAttribute("name", "new-rating");
+    newRatingsSelection.classList.add("change-rating-options");
+    newBookButtons.appendChild(newRatingsSelection);
+    newBookElement.appendChild(newBookButtons);
     for (let i = 0; i <= 5; i++) {
-        const option = document.createElement("option");
+        const rating = document.createElement("option");
         if (i === 0) {
-            option.setAttribute("value", "");
-            option.textContent = "New Rating";
+            rating.setAttribute("value", "");
+            rating.textContent = "New Rating";
         } else {
-            option.setAttribute("value", i);
-            option.textContent = i
+            rating.setAttribute("value", i);
+            rating.textContent = i
         }
-        ratingSelection.appendChild(option);
+        newRatingsSelection.appendChild(rating);
     }
     changeRatingButton.addEventListener("click", () => {
-        newBook.changeRating(ratingSelection.value);
-        const bookRating = bookCard.querySelector(".rating");
-        if (ratingSelection.value !== "") {
+        newBook.changeRating(newRatingsSelection.value);
+        const bookRating = newBookElement.querySelector(".rating");
+        if (newRatingsSelection.value !== "") {
             bookRating.textContent = `Rating: ${newBook.rating}/5`;
         } else {
             bookRating.textContent = "No Rating";
         }
-        ratingSelection.value = "";
+        newRatingsSelection.value = "";
     })
 }
 
 const displayNewlyAddedBook = () => {
     const bookContainer = document.querySelector(".book-container");
     const newBook = library[library.length - 1];
-    const bookCard = document.createElement("div");
-    const bookButtons = document.createElement("div");
-    bookButtons.classList.add("book-buttons");
-    bookCard.dataset.indexNumber = library.length - 1;
-    bookCard.classList.add("book");
-    bookContainer.appendChild(bookCard);
-    addRemoveBookButton(bookCard);
-    addBookInformation(newBook, bookCard);
-    addChangeReadStatusButton(newBook, bookCard, bookButtons);
-    addChangeRatingButton(newBook, bookCard, bookButtons);
+    const newBookElement = document.createElement("div");
+    const newBookButtons = document.createElement("div");
+    newBookButtons.classList.add("book-buttons");
+    newBookElement.dataset.indexNumber = library.length - 1;
+    newBookElement.classList.add("book");
+    bookContainer.appendChild(newBookElement);
+    addRemoveBookButton(newBookElement);
+    addBookInformation(newBook, newBookElement);
+    addChangeReadStatusButton(newBook, newBookElement, newBookButtons);
+    addChangeRatingButton(newBook, newBookElement, newBookButtons);
 }
 
 const hideFormErrorMessages = () => {
@@ -237,11 +236,11 @@ const hideFormErrorMessages = () => {
 
 const addFormDim = () => {
     const bodyElement = document.querySelector("body");
-    const dimFilter = document.createElement("div");
+    const formDimElement = document.createElement("div");
     const newBookForm = document.querySelector("form");
-    dimFilter.classList.add("form-dim");
-    bodyElement.appendChild(dimFilter);
-    dimFilter.addEventListener("click", () => {
+    formDimElement.classList.add("form-dim");
+    bodyElement.appendChild(formDimElement);
+    formDimElement.addEventListener("click", () => {
         removeFormDim();
         hideFormErrorMessages();
         newBookForm.classList.remove("form-showing");
@@ -250,8 +249,8 @@ const addFormDim = () => {
 }
 
 const removeFormDim = () => {
-    const dimFilter = document.querySelector(".form-dim");
-    dimFilter.remove();
+    const formDimElement = document.querySelector(".form-dim");
+    formDimElement.remove();
 }
 
 const addFormButtonClicker = () => {
@@ -276,9 +275,9 @@ const addSubmitFormClicker = () => {
 }
 
 const addCancelFormClicker = () => {
-    const cancelButton = document.querySelector("#cancel-button");
+    const cancelFormButton = document.querySelector("#cancel-button");
     const newBookForm = document.querySelector("form");
-    cancelButton.addEventListener("click", () => {
+    cancelFormButton.addEventListener("click", () => {
         removeFormDim();
         hideFormErrorMessages();
         newBookForm.classList.remove("form-showing");
