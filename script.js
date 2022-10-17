@@ -129,7 +129,7 @@ const addRemoveBookButton = (bookCard) => {
 }
 
 // Adds properties of the newly added Book object to the new book's DOM element
-const addBookDetails = (bookCard, newBook) => {
+const addBookDetails = (newBook, bookCard) => {
     const NUMOFPTAG = 4;
     const bookDetails = document.createElement("div");
     bookDetails.classList.add("book-information");
@@ -162,7 +162,7 @@ const addBookDetails = (bookCard, newBook) => {
 }
 
 // Creates change read status button DOM element and adds functionality to cycle through read statuses
-const addChangeReadStatusButton = (bookCard, newBook, bookButtons) => {
+const addChangeReadStatusButton = (newBook, bookCard, bookButtons) => {
     const readStatusButton = document.createElement("button");
     readStatusButton.setAttribute("type", "button");
     readStatusButton.classList.add("change-read-button");
@@ -177,7 +177,7 @@ const addChangeReadStatusButton = (bookCard, newBook, bookButtons) => {
 }
 
 // Creates change rating button and selection DOM elements and adds functionality to choose new ratings
-const addChangeRatingButton = (bookCard, newBook, bookButtons) => {
+const addChangeRatingButton = (newBook, bookCard, bookButtons) => {
     const changeRatingButton = document.createElement("button");
     changeRatingButton.setAttribute("type", "button");
     changeRatingButton.classList.add("change-rating-button");
@@ -222,9 +222,9 @@ const displayNewlyAddedBook = () => {
     bookCard.classList.add("book");
     bookContainer.appendChild(bookCard);
     addRemoveBookButton(bookCard);
-    addBookDetails(bookCard, newBook);
-    addChangeReadStatusButton(bookCard, newBook, bookButtons);
-    addChangeRatingButton(bookCard, newBook, bookButtons);
+    addBookDetails(newBook, bookCard);
+    addChangeReadStatusButton(newBook, bookCard, bookButtons);
+    addChangeRatingButton(newBook, bookCard, bookButtons);
 }
 
 const hideFormErrorMessages = () => {
