@@ -30,21 +30,21 @@
                 </button>
                 <label for="input-title">Title</label>
                 <div class="error-message" id="title-error">Missing Title!</div>
-                <input type="text" id="input-title" name="title">
+                <input type="text" id="input-title" name="title" required>
                 <label for="input-author">Author</label>
                 <div class="error-message" id="author-error">Missing Author!</div>
-                <input type="text" id="input-author" name="author">
+                <input type="text" id="input-author" name="author" required>
                 <label for="input-pages">Pages</label>
                 <div class="error-message" id="pages-error">Missing Pages!</div>
-                <input type="tel" id="input-pages" name="pages">
+                <input type="number" id="input-pages" name="pages" required>
                 <div class="radio-buttons">
                     <legend>Have you read this book?</legend>
                     <div class="error-message" id="read-status-error">Missing Read Status!</div>
-                    <input type="radio" id="input-yes" name="read-status" value="Have Read">
+                    <input type="radio" id="input-yes" name="read-status" value="Have Read" required>
                     <label for="input-yes">Yes</label>
-                    <input type="radio" id="input-no" name="read-status" value="Have Not Read">
+                    <input type="radio" id="input-no" name="read-status" value="Have Not Read" required>
                     <label for="input-no">No</label>
-                    <input type="radio" id="input-currently-reading" name="read-status" value="Currently Reading">
+                    <input type="radio" id="input-currently-reading" name="read-status" value="Currently Reading" required>
                     <label for="input-currently-reading">Currently Reading</label>
                 </div>
                 <div class="rating-select">
