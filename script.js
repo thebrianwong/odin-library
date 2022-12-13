@@ -35,6 +35,29 @@ const radioButtonsArray = Array.from(
 );
 const formInputRatingsElement = document.querySelector("#input-rating");
 
+const showGeneralErrorMessages = () => {
+  const formRequiredInputs = Array.from(
+    document.querySelectorAll(".required-input")
+  );
+  formRequiredInputs.forEach((input) => {
+    input.addEventListener("blur", () => {
+      if (
+        input.validity.valueMissing ||
+        (input.getAttribute("type") === "radio" && input.checked === false)
+      ) {
+        const inputType = input.getAttribute("name");
+        input.setCustomValidity(`Hey, you forgot to add the ${inputType}!`);
+        input.reportValidity();
+      } else {
+        input.setCustomValidity("");
+      }
+    });
+    input.addEventListener("input", () => {
+      input.setCustomValidity("");
+    });
+  });
+};
+
 // Checks if any input values are empty and if the pages value contain a number
 const validateBookInformation = () => {
   let validInformation = true;
@@ -299,6 +322,7 @@ const addCancelFormClicker = () => {
 addFormButtonClicker();
 addSubmitFormClicker();
 addCancelFormClicker();
+showGeneralErrorMessages();
 
 // Add example book
 const exampleBook = new Book(
