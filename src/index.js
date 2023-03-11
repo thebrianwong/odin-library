@@ -9,8 +9,11 @@ import {
   onSnapshot,
   setDoc,
   updateDoc,
+  deleteDoc,
   doc,
   serverTimestamp,
+  where,
+  getDocs,
 } from "firebase/firestore";
 import { getFirebaseConfig } from "./firebase-config.js";
 
@@ -164,7 +167,7 @@ const resetNewBookFormValues = () => {
 };
 
 // Creates remove button DOM element and adds functionality to remove corresponding book DOM element
-const addRemoveBookButton = (newBookElement) => {
+const addRemoveBookButton = (book, newBookElement) => {
   const removeBookButton = document.createElement("button");
   removeBookButton.setAttribute("type", "button");
   removeBookButton.classList.add("remove-book");
@@ -174,9 +177,11 @@ const addRemoveBookButton = (newBookElement) => {
   removeBookButton.appendChild(removeBookButtonImage);
   newBookElement.appendChild(removeBookButton);
   removeBookButton.addEventListener("click", () => {
-    bookIndexNumber = newBookElement.dataset.indexNumber;
-    library.splice(bookIndexNumber, 1, undefined);
-    newBookElement.remove();
+    // bookIndexNumber = newBookElement.dataset.indexNumber;
+    // library.splice(bookIndexNumber, 1, undefined);
+    // newBookElement.remove();
+
+    removeBookFromDatabase(book);
   });
 };
 
@@ -355,6 +360,21 @@ const saveBookToDatabase = async (book) => {
   }
 };
 
+const removeBookFromDatabase = async (book) => {
+  const documentQuery = query(
+    libraryRef,
+    where("title", "==", book.title),
+    where("author", "==", book.author),
+    where("pages", "==", book.pages),
+    where("read", "==", book.read),
+    where("rating", "==", book.rating)
+  );
+  const querySnapshot = await getDocs(documentQuery);
+  querySnapshot.forEach((document) => {
+    deleteDoc(document.ref);
+  });
+};
+
 const loadBooks = () => {
   const libraryBooks = query(collection(getFirestore(), "library"));
 
@@ -385,14 +405,16 @@ const displayBookFromDatabase = (book) => {
   bookElement.dataset.bookId = book.title + book.author;
   bookElement.classList.add("book");
   bookContainer.appendChild(bookElement);
-  addRemoveBookButton(bookElement);
+  addRemoveBookButton(book, bookElement);
   addBookInformation(book, bookElement);
   addChangeReadStatusButton(book, bookElement, bookButtons);
   addChangeRatingButton(book, bookElement, bookButtons);
 };
 
 const firebaseAppConfig = getFirebaseConfig();
-initializeApp(firebaseAppConfig);
+const app = initializeApp(firebaseAppConfig);
+const db = getFirestore(app);
+const libraryRef = collection(db, "library");
 
 addFormButtonClicker();
 addSubmitFormClicker();
@@ -408,5 +430,16 @@ const exampleBook = new Book(
   4
 );
 library.push(exampleBook);
-displayNewlyAddedBook();
+// displayNewlyAddedBook();
 loadBooks();
+(async () => {
+  const documentQuery = query(
+    libraryRef,
+    where("title", "==", "Cheesy"),
+    where("author", "==", "Man")
+  );
+  const querySnapshot = await getDocs(documentQuery);
+  querySnapshot.forEach((document) => {
+    deleteDoc(document.ref);
+  });
+})();
