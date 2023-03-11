@@ -88,7 +88,7 @@ const validateBookInformation = () => {
     formPagesErrorMessage.style.display = "none";
   }
   const radioButtonsErrorMessage = document.querySelector("#read-status-error");
-  for (button in radioButtonsArray) {
+  for (const button in radioButtonsArray) {
     const radioButton = radioButtonsArray[button];
     if (radioButton.checked === true) {
       validRadioButtons = true;
@@ -110,7 +110,7 @@ const addNewBookToLibrary = () => {
   const formPagesValue = formInputPagesElement.value;
   let inputReadStatus = "";
   let formRatingsValue = formInputRatingsElement.value;
-  for (button in radioButtonsArray) {
+  for (const button in radioButtonsArray) {
     const radioButton = radioButtonsArray[button];
     if (radioButton.checked === true) {
       inputReadStatus = radioButton.value;
@@ -136,7 +136,7 @@ const resetNewBookFormValues = () => {
   formInputTitleElement.value = "";
   formInputAuthorElement.value = "";
   formInputPagesElement.value = "";
-  for (button in radioButtonsArray) {
+  for (const button in radioButtonsArray) {
     const radioButton = radioButtonsArray[button];
     if (radioButton.checked === true) {
       radioButton.checked = false;
