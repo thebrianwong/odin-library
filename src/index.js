@@ -14,22 +14,6 @@ import {
 } from "firebase/firestore";
 import { getFirebaseConfig } from "./firebase-config.js";
 
-// Firebase-related functions
-
-const saveBookToDatabase = async (book) => {
-  try {
-    await addDoc(collection(getFirestore(), "library"), {
-      title: book.title,
-      author: book.author,
-      pages: book.pages,
-      read: book.read,
-      rating: book.rating,
-    });
-  } catch (e) {
-    console.error("Could not save book to database: ", e);
-  }
-};
-
 const library = [];
 
 function Book(title, author, pages, read, rating) {
@@ -352,6 +336,58 @@ const addCancelFormClicker = () => {
   });
 };
 
+// Firebase-related functions
+
+const saveBookToDatabase = async (book) => {
+  try {
+    await addDoc(collection(getFirestore(), "library"), {
+      title: book.title,
+      author: book.author,
+      pages: book.pages,
+      read: book.read,
+      rating: book.rating,
+    });
+  } catch (e) {
+    console.error("Could not save book to database: ", e);
+  }
+};
+
+const loadBooks = () => {
+  const libraryBooks = query(collection(getFirestore(), "library"));
+
+  onSnapshot(libraryBooks, (snapshot) => {
+    snapshot.docChanges().forEach((change) => {
+      if (change.type === "added") {
+        const bookData = change.doc.data();
+        const bookObject = new Book(
+          bookData.title,
+          bookData.author,
+          bookData.pages,
+          bookData.read,
+          bookData.rating
+        );
+        displayBookFromDatabase(bookObject);
+      }
+    });
+  });
+};
+
+// New functions for old functions that don't work well with Firebase integration
+
+const displayBookFromDatabase = (book) => {
+  const bookContainer = document.querySelector(".book-container");
+  const bookElement = document.createElement("div");
+  const bookButtons = document.createElement("div");
+  bookButtons.classList.add("book-buttons");
+  bookElement.dataset.bookId = book.title + book.author;
+  bookElement.classList.add("book");
+  bookContainer.appendChild(bookElement);
+  addRemoveBookButton(bookElement);
+  addBookInformation(book, bookElement);
+  addChangeReadStatusButton(book, bookElement, bookButtons);
+  addChangeRatingButton(book, bookElement, bookButtons);
+};
+
 const firebaseAppConfig = getFirebaseConfig();
 initializeApp(firebaseAppConfig);
 
@@ -370,3 +406,4 @@ const exampleBook = new Book(
 );
 library.push(exampleBook);
 displayNewlyAddedBook();
+loadBooks();
