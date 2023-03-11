@@ -14,6 +14,22 @@ import {
 } from "firebase/firestore";
 import { getFirebaseConfig } from "./firebase-config.js";
 
+// Firebase-related functions
+
+const saveBookToDatabase = async (book) => {
+  try {
+    await addDoc(collection(getFirestore(), "library"), {
+      title: book.title,
+      author: book.author,
+      pages: book.pages,
+      read: book.read,
+      rating: book.rating,
+    });
+  } catch (e) {
+    console.error("Could not save book to database: ", e);
+  }
+};
+
 const library = [];
 
 function Book(title, author, pages, read, rating) {
@@ -145,6 +161,7 @@ const addNewBookToLibrary = () => {
     inputReadStatus,
     formRatingsValue
   );
+  saveBookToDatabase(newBook);
   library.push(newBook);
 };
 
