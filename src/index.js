@@ -1,3 +1,19 @@
+import { initializeApp } from "firebase/app";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  limit,
+  onSnapshot,
+  setDoc,
+  updateDoc,
+  doc,
+  serverTimestamp,
+} from "firebase/firestore";
+import { getFirebaseConfig } from "./firebase-config.js";
+
 const library = [];
 
 function Book(title, author, pages, read, rating) {
@@ -318,6 +334,9 @@ const addCancelFormClicker = () => {
     newBookForm.classList.add("form-hiding");
   });
 };
+
+const firebaseAppConfig = getFirebaseConfig();
+initializeApp(firebaseAppConfig);
 
 addFormButtonClicker();
 addSubmitFormClicker();
