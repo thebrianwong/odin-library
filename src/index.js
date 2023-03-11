@@ -339,6 +339,9 @@ const addCancelFormClicker = () => {
 // Firebase-related functions
 
 const saveBookToDatabase = async (book) => {
+  if (book.rating === undefined) {
+    book.rating = "Have Not Read";
+  }
   try {
     await addDoc(collection(getFirestore(), "library"), {
       title: book.title,
