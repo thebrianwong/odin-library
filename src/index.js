@@ -5,9 +5,7 @@ import {
   addDoc,
   query,
   orderBy,
-  limit,
   onSnapshot,
-  setDoc,
   updateDoc,
   deleteDoc,
   doc,
@@ -327,6 +325,7 @@ const saveBookToDatabase = async (book) => {
       pages: book.pages,
       read: book.read,
       rating: book.rating,
+      timestamp: serverTimestamp(),
     });
   } catch (e) {
     console.error("Could not save book to database: ", e);
@@ -366,7 +365,10 @@ const modifyUpdatedBook = (book, id) => {
 };
 
 const loadBooks = () => {
-  const libraryBooks = query(collection(getFirestore(), "library"));
+  const libraryBooks = query(
+    collection(getFirestore(), "library"),
+    orderBy("timestamp")
+  );
 
   onSnapshot(libraryBooks, (snapshot) => {
     snapshot.docChanges().forEach((change) => {
