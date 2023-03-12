@@ -231,6 +231,8 @@ const addChangeReadStatusButton = (newBook, newBookElement, newBookButtons) => {
     newBook.changeReadStatus();
     const bookReadStatus = newBookElement.querySelector(".read");
     bookReadStatus.textContent = newBook.read;
+
+    updateBookInDatabase(newBookElement.dataset.bookId, "read", newBook.read);
   });
 };
 
@@ -266,6 +268,11 @@ const addChangeRatingButton = (newBook, newBookElement, newBookButtons) => {
       bookRating.textContent = "No Rating";
     }
     newRatingsSelection.value = "";
+    updateBookInDatabase(
+      newBookElement.dataset.bookId,
+      "rating",
+      newBook.rating
+    );
   });
 };
 
@@ -366,6 +373,16 @@ const removeBookFromDatabase = async (id) => {
   const querySnapshot = await getDocs(documentQuery);
   querySnapshot.forEach((document) => {
     deleteDoc(document.ref);
+  });
+};
+
+const updateBookInDatabase = async (dbDocumentId, valueType, newValue) => {
+  if (newValue === undefined) {
+    newValue = 0;
+  }
+  const documentRef = doc(db, "library", `${dbDocumentId}`);
+  await updateDoc(documentRef, {
+    [valueType]: newValue,
   });
 };
 
