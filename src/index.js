@@ -18,8 +18,6 @@ import {
 } from "firebase/firestore";
 import { getFirebaseConfig } from "./firebase-config.js";
 
-const library = [];
-
 function Book(title, author, pages, read, rating) {
   this.title = title;
   this.author = author;
@@ -42,7 +40,7 @@ Book.prototype.changeRating = function (newRating) {
   if (newRating > 0) {
     this.rating = Number(newRating);
   } else {
-    this.rating = undefined;
+    this.rating = "";
   }
 };
 
@@ -124,7 +122,7 @@ const validateBookInformation = () => {
   return validInformation;
 };
 
-const addNewBookToLibrary = () => {
+const createNewBookObject = () => {
   const formTitleValue = formInputTitleElement.value;
   const formAuthorValue = formInputAuthorElement.value;
   const formPagesValue = formInputPagesElement.value;
@@ -140,7 +138,7 @@ const addNewBookToLibrary = () => {
   if (formRatingsValue !== "") {
     formRatingsValue = Number(formRatingsValue);
   } else {
-    formRatingsValue = undefined;
+    formRatingsValue = "";
   }
   const newBook = new Book(
     formTitleValue,
@@ -150,7 +148,6 @@ const addNewBookToLibrary = () => {
     formRatingsValue
   );
   saveBookToDatabase(newBook);
-  library.push(newBook);
 };
 
 const resetNewBookFormValues = () => {
@@ -178,10 +175,6 @@ const addRemoveBookButton = (book, newBookElement) => {
   removeBookButton.appendChild(removeBookButtonImage);
   newBookElement.appendChild(removeBookButton);
   removeBookButton.addEventListener("click", () => {
-    // bookIndexNumber = newBookElement.dataset.indexNumber;
-    // library.splice(bookIndexNumber, 1, undefined);
-    // newBookElement.remove();
-
     removeBookFromDatabase(newBookElement.dataset.bookId);
   });
 };
@@ -229,9 +222,6 @@ const addChangeReadStatusButton = (newBook, newBookElement, newBookButtons) => {
   newBookElement.appendChild(newBookButtons);
   changeReadStatusButton.addEventListener("click", () => {
     newBook.changeReadStatus();
-    // const bookReadStatus = newBookElement.querySelector(".read");
-    // bookReadStatus.textContent = newBook.read;
-
     updateBookInDatabase(newBookElement.dataset.bookId, "read", newBook.read);
   });
 };
@@ -261,12 +251,6 @@ const addChangeRatingButton = (newBook, newBookElement, newBookButtons) => {
   }
   changeRatingButton.addEventListener("click", () => {
     newBook.changeRating(newRatingsSelection.value);
-    // const bookRating = newBookElement.querySelector(".rating");
-    // if (newRatingsSelection.value !== "") {
-    //   bookRating.textContent = `Rating: ${newBook.rating}/5`;
-    // } else {
-    //   bookRating.textContent = "No Rating";
-    // }
     newRatingsSelection.value = "";
     updateBookInDatabase(
       newBookElement.dataset.bookId,
@@ -274,21 +258,6 @@ const addChangeRatingButton = (newBook, newBookElement, newBookButtons) => {
       newBook.rating
     );
   });
-};
-
-const displayNewlyAddedBook = () => {
-  const bookContainer = document.querySelector(".book-container");
-  const newBook = library[library.length - 1];
-  const newBookElement = document.createElement("div");
-  const newBookButtons = document.createElement("div");
-  newBookButtons.classList.add("book-buttons");
-  newBookElement.dataset.indexNumber = library.length - 1;
-  newBookElement.classList.add("book");
-  bookContainer.appendChild(newBookElement);
-  addRemoveBookButton(newBookElement);
-  addBookInformation(newBook, newBookElement);
-  addChangeReadStatusButton(newBook, newBookElement, newBookButtons);
-  addChangeRatingButton(newBook, newBookElement, newBookButtons);
 };
 
 const hideFormErrorMessages = () => {
@@ -331,9 +300,8 @@ const addSubmitFormClicker = () => {
   const submitFormButton = document.querySelector("#add-book");
   submitFormButton.addEventListener("click", () => {
     if (validateBookInformation() === true) {
-      addNewBookToLibrary();
+      createNewBookObject();
       resetNewBookFormValues();
-      displayNewlyAddedBook();
     }
   });
 };
@@ -352,9 +320,6 @@ const addCancelFormClicker = () => {
 // Firebase-related functions
 
 const saveBookToDatabase = async (book) => {
-  if (book.rating === undefined) {
-    book.rating = "Have Not Read";
-  }
   try {
     await addDoc(collection(getFirestore(), "library"), {
       title: book.title,
@@ -377,9 +342,6 @@ const removeBookFromDatabase = async (id) => {
 };
 
 const updateBookInDatabase = async (dbDocumentId, valueType, newValue) => {
-  if (newValue === undefined) {
-    newValue = "";
-  }
   const documentRef = doc(db, "library", `${dbDocumentId}`);
   await updateDoc(documentRef, {
     [valueType]: newValue,
@@ -454,14 +416,4 @@ addSubmitFormClicker();
 addCancelFormClicker();
 showGeneralErrorMessages();
 
-// Add example book
-const exampleBook = new Book(
-  "Moby Dick (Example)",
-  "Herman Melville",
-  378,
-  "Have Not Read",
-  4
-);
-library.push(exampleBook);
-// displayNewlyAddedBook();
 loadBooks();
