@@ -208,7 +208,7 @@ const addBookInformation = (newBook, newBookElement) => {
       paragraph.textContent = newBook.read;
     } else {
       paragraph.classList.add("rating");
-      if (newBook.rating !== undefined) {
+      if (newBook.rating !== "") {
         paragraph.textContent = `Rating: ${newBook.rating}/5`;
       } else {
         paragraph.textContent = "No Rating";
@@ -378,7 +378,7 @@ const removeBookFromDatabase = async (id) => {
 
 const updateBookInDatabase = async (dbDocumentId, valueType, newValue) => {
   if (newValue === undefined) {
-    newValue = 0;
+    newValue = "";
   }
   const documentRef = doc(db, "library", `${dbDocumentId}`);
   await updateDoc(documentRef, {
