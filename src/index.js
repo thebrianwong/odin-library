@@ -229,8 +229,8 @@ const addChangeReadStatusButton = (newBook, newBookElement, newBookButtons) => {
   newBookElement.appendChild(newBookButtons);
   changeReadStatusButton.addEventListener("click", () => {
     newBook.changeReadStatus();
-    const bookReadStatus = newBookElement.querySelector(".read");
-    bookReadStatus.textContent = newBook.read;
+    // const bookReadStatus = newBookElement.querySelector(".read");
+    // bookReadStatus.textContent = newBook.read;
 
     updateBookInDatabase(newBookElement.dataset.bookId, "read", newBook.read);
   });
@@ -261,12 +261,12 @@ const addChangeRatingButton = (newBook, newBookElement, newBookButtons) => {
   }
   changeRatingButton.addEventListener("click", () => {
     newBook.changeRating(newRatingsSelection.value);
-    const bookRating = newBookElement.querySelector(".rating");
-    if (newRatingsSelection.value !== "") {
-      bookRating.textContent = `Rating: ${newBook.rating}/5`;
-    } else {
-      bookRating.textContent = "No Rating";
-    }
+    // const bookRating = newBookElement.querySelector(".rating");
+    // if (newRatingsSelection.value !== "") {
+    //   bookRating.textContent = `Rating: ${newBook.rating}/5`;
+    // } else {
+    //   bookRating.textContent = "No Rating";
+    // }
     newRatingsSelection.value = "";
     updateBookInDatabase(
       newBookElement.dataset.bookId,
@@ -386,6 +386,23 @@ const updateBookInDatabase = async (dbDocumentId, valueType, newValue) => {
   });
 };
 
+const removeDeletedBook = (id) => {
+  const bookElement = document.querySelector(`[data-book-id="${id}"]`);
+  bookElement.parentElement.removeChild(bookElement);
+};
+
+const modifyUpdatedBook = (book, id) => {
+  const bookElement = document.querySelector(`[data-book-id="${id}"]`);
+  const readStatusElement = bookElement.querySelector(".read");
+  const ratingElement = bookElement.querySelector(".rating");
+  readStatusElement.textContent = book.read;
+  if (book.rating !== "") {
+    ratingElement.textContent = `Rating: ${book.rating}/5`;
+  } else {
+    ratingElement.textContent = "No Rating";
+  }
+};
+
 const loadBooks = () => {
   const libraryBooks = query(collection(getFirestore(), "library"));
 
@@ -393,20 +410,19 @@ const loadBooks = () => {
     snapshot.docChanges().forEach((change) => {
       const bookData = change.doc.data();
       const dbDocumentId = change.doc.id;
+      const bookObject = new Book(
+        bookData.title,
+        bookData.author,
+        bookData.pages,
+        bookData.read,
+        bookData.rating
+      );
       if (change.type === "added") {
-        const bookObject = new Book(
-          bookData.title,
-          bookData.author,
-          bookData.pages,
-          bookData.read,
-          bookData.rating
-        );
         displayBookFromDatabase(bookObject, dbDocumentId);
       } else if (change.type === "removed") {
-        const bookElement = document.querySelector(
-          `[data-book-id="${dbDocumentId}"]`
-        );
-        bookElement.parentElement.removeChild(bookElement);
+        removeDeletedBook(dbDocumentId);
+      } else if (change.type === "modified") {
+        modifyUpdatedBook(bookObject, dbDocumentId);
       }
     });
   });
