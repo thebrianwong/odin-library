@@ -14,6 +14,7 @@ import {
   serverTimestamp,
   where,
   getDocs,
+  documentId,
 } from "firebase/firestore";
 import { getFirebaseConfig } from "./firebase-config.js";
 
@@ -181,7 +182,7 @@ const addRemoveBookButton = (book, newBookElement) => {
     // library.splice(bookIndexNumber, 1, undefined);
     // newBookElement.remove();
 
-    removeBookFromDatabase(book);
+    removeBookFromDatabase(newBookElement.dataset.bookId);
   });
 };
 
@@ -360,15 +361,8 @@ const saveBookToDatabase = async (book) => {
   }
 };
 
-const removeBookFromDatabase = async (book) => {
-  const documentQuery = query(
-    libraryRef,
-    where("title", "==", book.title),
-    where("author", "==", book.author),
-    where("pages", "==", book.pages),
-    where("read", "==", book.read),
-    where("rating", "==", book.rating)
-  );
+const removeBookFromDatabase = async (id) => {
+  const documentQuery = query(libraryRef, where(documentId(), "==", `${id}`));
   const querySnapshot = await getDocs(documentQuery);
   querySnapshot.forEach((document) => {
     deleteDoc(document.ref);
@@ -380,8 +374,9 @@ const loadBooks = () => {
 
   onSnapshot(libraryBooks, (snapshot) => {
     snapshot.docChanges().forEach((change) => {
+      const bookData = change.doc.data();
+      const dbDocumentId = change.doc.id;
       if (change.type === "added") {
-        const bookData = change.doc.data();
         const bookObject = new Book(
           bookData.title,
           bookData.author,
@@ -389,7 +384,12 @@ const loadBooks = () => {
           bookData.read,
           bookData.rating
         );
-        displayBookFromDatabase(bookObject);
+        displayBookFromDatabase(bookObject, dbDocumentId);
+      } else if (change.type === "removed") {
+        const bookElement = document.querySelector(
+          `[data-book-id="${dbDocumentId}"]`
+        );
+        bookElement.parentElement.removeChild(bookElement);
       }
     });
   });
@@ -397,12 +397,12 @@ const loadBooks = () => {
 
 // New functions for old functions that don't work well with Firebase integration
 
-const displayBookFromDatabase = (book) => {
+const displayBookFromDatabase = (book, id) => {
   const bookContainer = document.querySelector(".book-container");
   const bookElement = document.createElement("div");
   const bookButtons = document.createElement("div");
   bookButtons.classList.add("book-buttons");
-  bookElement.dataset.bookId = book.title + book.author;
+  bookElement.dataset.bookId = id;
   bookElement.classList.add("book");
   bookContainer.appendChild(bookElement);
   addRemoveBookButton(book, bookElement);
@@ -432,14 +432,3 @@ const exampleBook = new Book(
 library.push(exampleBook);
 // displayNewlyAddedBook();
 loadBooks();
-(async () => {
-  const documentQuery = query(
-    libraryRef,
-    where("title", "==", "Cheesy"),
-    where("author", "==", "Man")
-  );
-  const querySnapshot = await getDocs(documentQuery);
-  querySnapshot.forEach((document) => {
-    deleteDoc(document.ref);
-  });
-})();
